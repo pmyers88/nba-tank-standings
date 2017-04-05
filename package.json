@@ -9,5 +9,8 @@
   "dependencies": {
     "alexa-sdk": "^1.0.8",
     "dotenv": "^4.0.0"
+  },
+  "devDependencies": {
+    "semistandard": "^10.0.0"
   }
 }
