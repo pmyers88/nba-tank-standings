@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Amazon Echo app for the latest NBA Tank Rankings",
   "main": "src/index.js",
+  "scripts": {
+    "lint": "semistandard"
+  },
   "repository": "https://github.com/pmyers88/nba-tank-rankings",
   "author": "Phil Myers <prm5031@gmail.com>",
   "license": "MIT",
