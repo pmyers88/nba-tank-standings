@@ -2,8 +2,12 @@
   "name": "nba-tank-rankings",
   "version": "0.0.1",
   "description": "Amazon Echo app for the latest NBA Tank Rankings",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
+    "setup-lambda": "node-lambda setup",
+    "build": "node-lambda package",
+    "clean": "rm -rf build",
+    "deploy": "yarn run lint && node-lambda deploy",
     "lint": "semistandard"
   },
   "repository": "https://github.com/pmyers88/nba-tank-rankings",
@@ -14,6 +18,7 @@
     "dotenv": "^4.0.0"
   },
   "devDependencies": {
+    "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
     "semistandard": "^10.0.0"
   }
 }
