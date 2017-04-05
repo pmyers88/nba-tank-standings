@@ -1,0 +1,28 @@
+GetTankRankings the tank rankings
+GetTankRankings what are the tank rankings
+GetTankRankings what're the tank rankings
+GetTankRankings give me the tank rankings
+GetTankRankings tell me the tank rankings
+GetTankRankings get me the tank rankings
+GetTankRankings get the tank rankings
+GetTankRankings find the tank rankings
+GetTankRankings find me the tank rankings
+
+GetTopNTankRankings the top {NumTeams} teams
+GetTopNTankRankings what are the top {NumTeams} teams
+GetTopNTankRankings what're the top {NumTeams} teams
+GetTopNTankRankings give me the top {NumTeams} teams
+GetTopNTankRankings tell me the top {NumTeams} teams
+GetTopNTankRankings get me the top {NumTeams} teams
+GetTopNTankRankings get the top {NumTeams} teams
+GetTopNTankRankings find the top {NumTeams} teams
+GetTopNTankRankings find me the top {NumTeams} teams
+
+GetTeamRankings the {Team} rankings
+GetTeamRankings the {Team} standings
+GetTeamRankings where the {Team} stands
+GetTeamRankings where the {Team} ranks
+GetTeamRankings the lottery odds for the {Team}
+GetTeamRankings info for the {Team}
+
+GetLotterySimulation simulate the lottery

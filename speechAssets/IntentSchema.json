@@ -1,0 +1,11 @@
+{"intents": [
+    {"intent": "AMAZON.RepeatIntent"},
+    {"intent": "AMAZON.HelpIntent"},
+    {"intent": "AMAZON.StopIntent"},
+    {"intent": "AMAZON.CancelIntent"},
+    {"intent": "GetTankRankings"},
+    {"intent": "GetLotterySimulation"},
+    {"intent": "GetTopNTankRankings", "slots": [{"name": "NumTeams", "type": "AMAZON.NUMBER"}]},
+    {"intent": "GetTeamRankings", "slots": [{"name": "Team", "type": "AMAZON.SportsTeam"}]}
+  ]
+}
