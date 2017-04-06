@@ -1,9 +1,7 @@
 const http = require('http');
 const _ = require('lodash');
 
-/**
-Inspired by https://github.com/alexa/skill-sample-node-device-address-api/blob/master/src/AlexaDeviceAddressClient.js
-**/
+// Inspired by https://github.com/alexa/skill-sample-node-device-address-api/blob/master/src/AlexaDeviceAddressClient.js
 class NBAClient {
   constructor () {
     this.endpoint = 'data.nba.net';
