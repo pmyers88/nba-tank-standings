@@ -21,7 +21,8 @@ describe('Messages', function () {
       messages.getTankRankingsMessage(['the Nets', 'the Suns', 'the Lakers']).should.equal(expected);
 
       expected = 'The top 5 teams in the tank rankings are the Nets, the Suns, the Lakers, the Magic, and the 76ers.';
-      messages.getTankRankingsMessage(['the Nets', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers']).should.equal(expected);
+      messages.getTankRankingsMessage(['the Nets', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers']).should.equal(
+          expected);
     });
   });
 });

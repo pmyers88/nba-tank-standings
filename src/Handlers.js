@@ -10,10 +10,10 @@ const handlers = {
     console.log('Getting tank rankings');
     nbaClient.getStandingsJSON(standingsResponse => {
       if (standingsResponse.statusCode >= 200 && standingsResponse.statusCode <= 399) {
-        const topThree = standingsResponse.standingsJSON.slice(0, NUM_TEAMS).map(team => {
+        const topTeams = standingsResponse.standingsJSON.slice(0, NUM_TEAMS).map(team => {
           return 'the ' + teams[team.teamId].nickname;
         });
-        this.emit(':tell', messages.getTankRankingsMessage(topThree));
+        this.emit(':tell', messages.getTankRankingsMessage(topTeams));
       }
     });
   },
