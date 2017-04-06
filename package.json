@@ -8,7 +8,8 @@
     "build": "node-lambda package",
     "clean": "rm -rf build",
     "deploy": "yarn run lint && node-lambda deploy",
-    "lint": "semistandard"
+    "lint": "semistandard",
+    "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan"
   },
   "repository": "https://github.com/pmyers88/nba-tank-rankings",
   "author": "Phil Myers <prm5031@gmail.com>",
@@ -20,7 +21,19 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "mocha": "^3.2.0",
     "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
-    "semistandard": "^10.0.0"
+    "semistandard": "^10.0.0",
+    "sinon": "^2.1.0"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it",
+      "beforeEach",
+      "afterEach"
+    ]
   }
 }
