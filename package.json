@@ -18,7 +18,8 @@
     "alexa-sdk": "^1.0.8",
     "compound-subject": "^0.0.2",
     "dotenv": "^4.0.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "pluralize": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

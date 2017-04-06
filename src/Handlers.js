@@ -13,7 +13,7 @@ const handlers = {
         const topThree = standingsResponse.standingsJSON.slice(0, NUM_TEAMS).map(team => {
           return 'the ' + teams[team.teamId].nickname;
         });
-        this.emit(':tell', messages.getTankRankingsMessage(NUM_TEAMS, topThree));
+        this.emit(':tell', messages.getTankRankingsMessage(topThree));
       }
     });
   },
