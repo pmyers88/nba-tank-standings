@@ -1,4 +1,4 @@
-const NBAClient = require('./src/NBAClient');
+const NBAClient = require('./NBAClient');
 const teams = require('./Teams');
 const messages = require('./Messages');
 

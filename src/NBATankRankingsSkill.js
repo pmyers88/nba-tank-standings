@@ -1,9 +1,8 @@
 'use strict';
 
-require('dotenv').config();
 const Alexa = require('alexa-sdk');
 
-const handlers = require('./Handlers');
+const handlers = require('./handlers');
 
 const APP_ID = process.env.APP_ID;
 
