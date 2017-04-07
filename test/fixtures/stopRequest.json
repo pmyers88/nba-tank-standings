@@ -1,0 +1,24 @@
+{
+  "session": {
+    "sessionId": "SessionId.UUID",
+    "application": {
+      "applicationId": "amzn1.ask.skill.UUID"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.account_num"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.UUID",
+    "locale": "en-US",
+    "timestamp": "2017-04-06T21:19:13Z",
+    "intent": {
+      "name": "AMAZON.StopIntent",
+      "slots": {}
+    }
+  },
+  "version": "1.0"
+}

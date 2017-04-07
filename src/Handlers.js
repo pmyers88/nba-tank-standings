@@ -18,6 +18,18 @@ const handlers = {
     });
   },
 
+  'GetLotterySimulation': function () {
+
+  },
+
+  'GetTopNTankRankings': function () {
+
+  },
+
+  'GetTeamRankings': function () {
+
+  },
+
   'AMAZON.HelpIntent': function () {
     this.emit(':ask', messages.HELP_MESSAGE, messages.HELP_MESSAGE);
   },
