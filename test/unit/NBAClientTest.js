@@ -35,16 +35,36 @@ describe('NBAClient', function () {
       nbaClient._handleRequest.restore();
     });
 
-    it('should return NBA teams sorted by winning percentage when promise resolves', function () {
+    it('should return JSON objects for 30 teams', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
       const standingsRequest = nbaClient.getStandingsRequest();
       return standingsRequest.then(nbaStandings => {
         nbaStandings.length.should.equal(30);
-        let winPct = '.000';
+      });
+    });
+
+    it('each team should have a teamId', function () {
+      const expected = {statusCode: 200, json: standings};
+      handleRequest.callsArgWith(1, expected);
+
+      const standingsRequest = nbaClient.getStandingsRequest();
+      return standingsRequest.then(nbaStandings => {
         nbaStandings.forEach(team => {
           team.should.include.keys('teamId');
+        });
+      });
+    });
+
+    it('should return NBA teams sorted by winning percentage', function () {
+      const expected = {statusCode: 200, json: standings};
+      handleRequest.callsArgWith(1, expected);
+
+      const standingsRequest = nbaClient.getStandingsRequest();
+      return standingsRequest.then(nbaStandings => {
+        let winPct = '.000';
+        nbaStandings.forEach(team => {
           winPct.should.be.at.most(team.winPct);
           winPct = team.winPct;
         });
@@ -125,6 +145,7 @@ describe('NBAClient', function () {
         'Chrome/56.0.2924.87 Safari/537.36',
         'Accept': 'application/json'
       };
+
       let options = nbaClient._getRequestOptions(standingsPath);
       options.should.eql({
         hostname: endpoint,

@@ -10,14 +10,18 @@ describe('Messages', function () {
   });
 
   describe('#getTankRankingsMessage', function () {
-    it('should return the correct message for the given arguments', function () {
-      let expected = 'The top team in the tank rankings is the Nets.';
+    it('should return the correct message for 1 team', function () {
+      const expected = 'The top team in the tank rankings is the Nets.';
       messages.getTankRankingsMessage(['the Nets']).should.equal(expected);
+    });
 
-      expected = 'The top 2 teams in the tank rankings are the Nets and the Suns.';
+    it('should return the correct message for 2 teams', function () {
+      const expected = 'The top 2 teams in the tank rankings are the Nets and the Suns.';
       messages.getTankRankingsMessage(['the Nets', 'the Suns']).should.equal(expected);
+    });
 
-      expected = 'The top 3 teams in the tank rankings are the Nets, the Suns, and the Lakers.';
+    it('should return the correct message for > 2 teams', function () {
+      let expected = 'The top 3 teams in the tank rankings are the Nets, the Suns, and the Lakers.';
       messages.getTankRankingsMessage(['the Nets', 'the Suns', 'the Lakers']).should.equal(expected);
 
       expected = 'The top 5 teams in the tank rankings are the Nets, the Suns, the Lakers, the Magic, and the 76ers.';
