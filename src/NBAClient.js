@@ -1,13 +1,11 @@
 const http = require('http');
 const _ = require('lodash');
 
+const endpoint = 'data.nba.net';
+
 // Inspired by https://github.com/alexa/skill-sample-node-device-address-api/blob/master/src/AlexaDeviceAddressClient.js
 class NBAClient {
-  constructor () {
-    this._endpoint = 'data.nba.net';
-  }
-
-  getStandingsRequest () {
+  static getStandingsRequest () {
     const options = this._getRequestOptions('/data/10s/prod/v1/current/standings_conference.json');
 
     return new Promise((resolve, reject) => {
@@ -25,7 +23,7 @@ class NBAClient {
     });
   }
 
-  _handleRequest (options, resolve, reject) {
+  static _handleRequest (options, resolve, reject) {
     http.get(options, response => {
       let rawData = '';
       response.on('data', (chunk) => {
@@ -50,9 +48,9 @@ class NBAClient {
     });
   }
 
-  _getRequestOptions (path) {
+  static _getRequestOptions (path) {
     return {
-      hostname: this._endpoint,
+      hostname: endpoint,
       path: path,
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) ' +

@@ -9,37 +9,25 @@ const standings = require('../fixtures/standings_conference');
 chai.should();
 
 describe('NBAClient', function () {
-  let nbaClient;
   const endpoint = 'data.nba.net';
   const standingsPath = '/data/10s/prod/v1/current/standings_conference.json';
-
-  beforeEach(function () {
-    nbaClient = new NBAClient();
-  });
-
-  describe('#constructor', function () {
-    it('should create an NBAClient with the correct defaults', function () {
-      const client = new NBAClient();
-      client._endpoint.should.equal(endpoint);
-    });
-  });
 
   describe('#getStandingsRequest', function () {
     let handleRequest;
 
     beforeEach(function () {
-      handleRequest = sinon.stub(nbaClient, '_handleRequest');
+      handleRequest = sinon.stub(NBAClient, '_handleRequest');
     });
 
     afterEach(function () {
-      nbaClient._handleRequest.restore();
+      NBAClient._handleRequest.restore();
     });
 
     it('should return JSON objects for 30 teams', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
-      const standingsRequest = nbaClient.getStandingsRequest();
+      const standingsRequest = NBAClient.getStandingsRequest();
       return standingsRequest.then(nbaStandings => {
         nbaStandings.length.should.equal(30);
       });
@@ -49,7 +37,7 @@ describe('NBAClient', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
-      const standingsRequest = nbaClient.getStandingsRequest();
+      const standingsRequest = NBAClient.getStandingsRequest();
       return standingsRequest.then(nbaStandings => {
         nbaStandings.forEach(team => {
           team.should.include.keys('teamId');
@@ -61,7 +49,7 @@ describe('NBAClient', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
-      const standingsRequest = nbaClient.getStandingsRequest();
+      const standingsRequest = NBAClient.getStandingsRequest();
       return standingsRequest.then(nbaStandings => {
         let winPct = '.000';
         nbaStandings.forEach(team => {
@@ -75,7 +63,7 @@ describe('NBAClient', function () {
       const expected = {statusCode: 400, json: {}};
       handleRequest.callsArgWith(1, expected);
 
-      const standingsRequest = nbaClient.getStandingsRequest();
+      const standingsRequest = NBAClient.getStandingsRequest();
       return standingsRequest.catch(error => {
         error.message.should.equal(`Received invalid HTTP response code: 400`);
       });
@@ -87,7 +75,7 @@ describe('NBAClient', function () {
 
       handleRequest.callsArgWith(2, expected);
 
-      const standingsRequest = nbaClient.getStandingsRequest();
+      const standingsRequest = NBAClient.getStandingsRequest();
 
       return standingsRequest.catch(error => {
         error.message.should.equal(message);
@@ -116,7 +104,7 @@ describe('NBAClient', function () {
       const request = new PassThrough();
       get.callsArgWith(1, response).returns(request);
 
-      nbaClient._handleRequest({hostname: endpoint, path: standingsPath}, result => {
+      NBAClient._handleRequest({hostname: endpoint, path: standingsPath}, result => {
         result.statusCode.should.equal(200);
         result.json.should.eql(expected);
         done();
@@ -129,7 +117,7 @@ describe('NBAClient', function () {
 
       get.returns(request);
 
-      nbaClient._handleRequest({}, () => {}, error => {
+      NBAClient._handleRequest({}, () => {}, error => {
         error.should.equal(expected);
         done();
       });
@@ -146,13 +134,13 @@ describe('NBAClient', function () {
         'Accept': 'application/json'
       };
 
-      let options = nbaClient._getRequestOptions(standingsPath);
+      let options = NBAClient._getRequestOptions(standingsPath);
       options.should.eql({
         hostname: endpoint,
         path: '/data/10s/prod/v1/current/standings_conference.json',
         headers: headers
       });
-      options = nbaClient._getRequestOptions('/foo.json');
+      options = NBAClient._getRequestOptions('/foo.json');
       options.should.eql({
         hostname: endpoint,
         path: '/foo.json',
