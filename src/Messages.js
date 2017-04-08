@@ -1,15 +1,22 @@
 const compoundSubject = require('compound-subject');
-const pluralize = require('pluralize');
+const inflection = require('inflection');
+const {inflect, ordinalize} = inflection;
 
-pluralize.addIrregularRule('is', 'are');
+const helpMessage = 'Try asking, what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    'simulate the lottery. Now, what can I help you with?';
 
 const messages = {
-  HELP_MESSAGE: 'NBA Tank Rankings can tell you the latest standings for the NBA draft lottery. Try asking, ' +
-      'what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or simulate the lottery.',
+  WELCOME_MESSAGE: 'Welcome to NBA Tank Rankings, the app for finding out the latest info about the NBA draft lottery. ' +
+      helpMessage,
+  WELCOME_REPROMPT: 'For instructions on what you can say, please say help me.',
+  HELP_MESSAGE: helpMessage,
   STOP_MESSAGE: 'Ok, goodbye!',
   getTankRankingsMessage: (teams) => {
-    return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${pluralize('team', teams.length)} in the tank ` +
-        `rankings ${pluralize('is', teams.length)} ${compoundSubject(teams).delimitAll().make()}.`;
+    return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
+        `rankings ${inflect('is', teams.length, 'is', 'are')} ${compoundSubject(teams).delimitAll().make()}.`;
+  },
+  getTeamRankingsMessage: (team, ranking) => {
+    return `The ${team} are currently ranked ${ordinalize(ranking.toString())} in the tank standings.`;
   }
 };
 
