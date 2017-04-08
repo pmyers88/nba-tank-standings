@@ -18,13 +18,13 @@
     "alexa-sdk": "^1.0.8",
     "compound-subject": "^0.0.2",
     "dotenv": "^4.0.0",
-    "lambda-local": "^1.4.2",
-    "lodash": "^4.17.4",
-    "pluralize": "^4.0.0"
+    "inflection": "^1.12.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "lambda-local": "^1.4.2",
     "mocha": "^3.2.0",
     "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
     "semistandard": "^10.0.0",
@@ -36,7 +36,8 @@
       "it",
       "before",
       "beforeEach",
-      "afterEach"
+      "afterEach",
+      "after"
     ]
   }
 }
