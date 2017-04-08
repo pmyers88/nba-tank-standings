@@ -1,6 +1,5 @@
 const chai = require('chai');
-const _values = require('lodash/values');
-const _size = require('lodash/size');
+const _ = require('lodash');
 
 const handlers = require('../../src/handlers');
 const intents = require('../../src/intents');
@@ -10,12 +9,12 @@ chai.should();
 
 describe('handlers', function () {
   it('should have the same number of methods as intents.length + events.length', function () {
-    _size(handlers).should.equal(_size(intents) + _size(events));
+    _.size(handlers).should.equal(_.size(intents) + _.size(events));
   });
   it('should have a key for every value in intents', function () {
-    handlers.should.have.any.keys(_values(intents));
+    handlers.should.have.any.keys(_.values(intents));
   });
   it('should have a key for every value in events', function () {
-    handlers.should.have.any.keys(_values(events));
+    handlers.should.have.any.keys(_.values(events));
   });
 });
