@@ -1,7 +1,7 @@
 {
-  "name": "nba-tank-rankings",
+  "name": "nba-tank-standings",
   "version": "0.0.1",
-  "description": "Amazon Echo app for the latest NBA Tank Rankings",
+  "description": "Amazon Echo app for the latest NBA Tank Standings",
   "main": "index.js",
   "scripts": {
     "setup-lambda": "node-lambda setup",
@@ -11,7 +11,7 @@
     "lint": "semistandard",
     "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan"
   },
-  "repository": "https://github.com/pmyers88/nba-tank-rankings",
+  "repository": "https://github.com/pmyers88/nba-tank-standings",
   "author": "Phil Myers <prm5031@gmail.com>",
   "license": "MIT",
   "dependencies": {

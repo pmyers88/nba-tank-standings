@@ -5,20 +5,20 @@ const intents = require('../../src/intents');
 chai.should();
 
 describe('Intents', function () {
-  it('should have GET_TANK_RANKINGS intent with value GetTankRankings', function () {
-    intents.GET_TANK_RANKINGS.should.equal('GetTankRankings');
+  it('should have GET_TANK_RANKINGS intent with value GetTankStandings', function () {
+    intents.GET_TANK_RANKINGS.should.equal('GetTankStandings');
   });
 
   it('should have GET_LOTTERY_SIMULATION intent with value GetLotterySimulation', function () {
     intents.GET_LOTTERY_SIMULATION.should.equal('GetLotterySimulation');
   });
 
-  it('should have GET_TOP_N_TANK_RANKINGS intent with value GetTopNTankRankings', function () {
-    intents.GET_TOP_N_TANK_RANKINGS.should.equal('GetTopNTankRankings');
+  it('should have GET_TOP_N_TANK_RANKINGS intent with value GetTopNTankStandings', function () {
+    intents.GET_TOP_N_TANK_RANKINGS.should.equal('GetTopNTankStandings');
   });
 
-  it('should have GET_TEAM_RANKINGS intent with value GetTeamRankings', function () {
-    intents.GET_TEAM_RANKINGS.should.equal('GetTeamRankings');
+  it('should have GET_TEAM_RANKINGS intent with value GetTeamStandings', function () {
+    intents.GET_TEAM_RANKINGS.should.equal('GetTeamStandings');
   });
 
   it('should have AMAZON_HELP intent with value AMAZON.HelpIntent', function () {

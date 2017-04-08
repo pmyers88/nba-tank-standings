@@ -48,17 +48,17 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    const welcomeMessage = 'Welcome to NBA Tank Rankings, the app for finding out the latest info about the NBA draft' +
-      ' lottery. Try asking, what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    const welcomeMessage = 'Welcome to NBA Tank Standings, the app for finding out the latest info about the NBA draft' +
+      ' lottery. Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
       'simulate the lottery. Now, what can I help you with?';
     const welcomeReprompt = 'For instructions on what you can say, please say help me.';
     shared.shouldBehaveLikeAskWithReprompt(welcomeMessage, welcomeReprompt);
   });
 
-  describe('#GetTankRankings', function () {
+  describe('#GetTankStandings', function () {
     before(function (done) {
       const event = intentRequest.getRequest({
-        'name': 'GetTankRankings',
+        'name': 'GetTankStandings',
         'slots': {}
       });
       const callLambdaTankFn = callLambdaFn.bind(this);
@@ -69,7 +69,7 @@ describe('Handlers', function () {
       this.done = null;
       this.err = null;
     });
-    const text = `The top ${process.env.NUM_TEAMS} teams in the tank rankings are the`;
+    const text = `The top ${process.env.NUM_TEAMS} teams in the tank standings are the`;
     const cardTitle = 'NBA Tank Standings';
     shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
   });
@@ -78,14 +78,14 @@ describe('Handlers', function () {
 
   });
 
-  describe('#GetTopNTankRankings', function () {
+  describe('#GetTopNTankStandings', function () {
 
   });
 
-  describe('#GetTeamRankings', function () {
+  describe('#GetTeamStandings', function () {
     before(function (done) {
       const event = intentRequest.getRequest({
-        'name': 'GetTeamRankings',
+        'name': 'GetTeamStandings',
         'slots': {
           'Team': {
             'name': 'Team',
@@ -120,7 +120,7 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    const helpText = 'Try asking, what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
         'simulate the lottery. Now, what can I help you with?';
     shared.shouldBehaveLikeAskWithReprompt(helpText, helpText);
   });
@@ -191,7 +191,7 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    const helpText = 'Try asking, what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
         'simulate the lottery. Now, what can I help you with?';
     const unhandledText = 'Sorry, I don\'t know how to handle that request. ' + helpText;
     shared.shouldBehaveLikeAskWithReprompt(unhandledText, helpText);

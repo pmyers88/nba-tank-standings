@@ -2,6 +2,6 @@
 
 require('dotenv').config();
 
-const NBATankRankingsSkill = require('./src/NBATankRankingsSkill');
+const NBATankStandingsSkill = require('./src/NBATankStandingsSkill');
 
-exports.handler = NBATankRankingsSkill.handler;
+exports.handler = NBATankStandingsSkill.handler;

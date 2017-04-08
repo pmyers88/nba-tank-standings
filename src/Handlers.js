@@ -26,15 +26,15 @@ const launchRequestHandler = function () {
   console.info('Ending launchRequestHandler()');
 };
 
-const getTankRankingsHandler = function () {
-  console.info('Starting getTankRankingsHandler()');
+const getTankStandingsHandler = function () {
+  console.info('Starting getTankStandingsHandler()');
   const nbaClient = new NBAClient();
   const standingsRequest = nbaClient.getStandingsRequest();
   standingsRequest.then(standingsResponse => {
     const topTeams = standingsResponse.slice(0, NUM_TEAMS).map(team => {
       return 'the ' + teams[team.teamId].nickname;
     });
-    const speechOutput = messages.getTankRankingsMessage(topTeams);
+    const speechOutput = messages.getTankStandingsMessage(topTeams);
     this.emit(':tellWithCard', speechOutput, messages.GET_TANK_RANKINGS_CARD_TITLE,
         speechOutput);
   });
@@ -43,7 +43,7 @@ const getTankRankingsHandler = function () {
     console.error(error.message);
     this.emit(':tell', 'An error occurred');
   });
-  console.info('Ending getTankRankingsHandler()');
+  console.info('Ending getTankStandingsHandler()');
 };
 
 const getLotterySimulationHandler = function () {
@@ -51,13 +51,13 @@ const getLotterySimulationHandler = function () {
   console.info('Ending getLotterySimulationHandler()');
 };
 
-const getTopNTankRankingsHandler = function () {
-  console.info('Starting getTopNTankRankingsHandler()');
-  console.info('Ending getTopNTankRankingsHandler()');
+const getTopNTankStandingsHandler = function () {
+  console.info('Starting getTopNTankStandingsHandler()');
+  console.info('Ending getTopNTankStandingsHandler()');
 };
 
-const getTeamRankingsHandler = function () {
-  console.info('Starting getTeamRankingsHandler()');
+const getTeamStandingsHandler = function () {
+  console.info('Starting getTeamStandingsHandler()');
   const nbaClient = new NBAClient();
   const standingsRequest = nbaClient.getStandingsRequest();
   const teamSlot = this.event.request.intent.slots.Team;
@@ -73,7 +73,7 @@ const getTeamRankingsHandler = function () {
         return teamName.includes(teams[team.teamId].nickname);
       });
       if (team) {
-        this.emit(':tell', messages.getTeamRankingsMessage(officialTeamNickname, foundIndex + 1));
+        this.emit(':tell', messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1));
       } else {
         this.emit(':tell', `Could not find the team ${teamName}`);
       }
@@ -121,10 +121,10 @@ const unhandledRequestHandler = function () {
 
 const handlers = {};
 
-handlers[intents.GET_TANK_RANKINGS] = getTankRankingsHandler;
+handlers[intents.GET_TANK_RANKINGS] = getTankStandingsHandler;
 handlers[intents.GET_LOTTERY_SIMULATION] = getLotterySimulationHandler;
-handlers[intents.GET_TOP_N_TANK_RANKINGS] = getTopNTankRankingsHandler;
-handlers[intents.GET_TEAM_RANKINGS] = getTeamRankingsHandler;
+handlers[intents.GET_TOP_N_TANK_RANKINGS] = getTopNTankStandingsHandler;
+handlers[intents.GET_TEAM_RANKINGS] = getTeamStandingsHandler;
 handlers[intents.AMAZON_HELP] = amazonHelpHandler;
 handlers[intents.AMAZON_CANCEL] = amazonCancelHandler;
 handlers[intents.AMAZON_STOP] = amazonStopHandler;

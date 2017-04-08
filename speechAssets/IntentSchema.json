@@ -1,8 +1,8 @@
 {"intents": [
-    {"intent": "GetTankRankings"},
+    {"intent": "GetTankStandings"},
     {"intent": "GetLotterySimulation"},
-    {"intent": "GetTopNTankRankings", "slots": [{"name": "NumTeams", "type": "AMAZON.NUMBER"}]},
-    {"intent": "GetTeamRankings", "slots": [{"name": "Team", "type": "AMAZON.SportsTeam"}]},
+    {"intent": "GetTopNTankStandings", "slots": [{"name": "NumTeams", "type": "AMAZON.NUMBER"}]},
+    {"intent": "GetTeamStandings", "slots": [{"name": "Team", "type": "AMAZON.SportsTeam"}]},
     {"intent": "AMAZON.HelpIntent"},
     {"intent": "AMAZON.StopIntent"},
     {"intent": "AMAZON.CancelIntent"}
