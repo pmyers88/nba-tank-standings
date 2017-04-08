@@ -1,6 +1,6 @@
 const chai = require('chai');
 
-const messages = require('../../src/Messages');
+const messages = require('../../src/messages');
 
 chai.should();
 
@@ -27,6 +27,13 @@ describe('Messages', function () {
       expected = 'The top 5 teams in the tank rankings are the Nets, the Suns, the Lakers, the Magic, and the 76ers.';
       messages.getTankRankingsMessage(['the Nets', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers']).should.equal(
           expected);
+    });
+  });
+
+  describe('#getTeamRankingsMessage', function () {
+    it('should return the correct message', function () {
+      const expected = 'The Nets are currently ranked 1st in the tank standings.';
+      messages.getTeamRankingsMessage('Nets', 1).should.equal(expected);
     });
   });
 });
