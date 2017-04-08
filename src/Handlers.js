@@ -38,7 +38,7 @@ const getTankStandingsHandler = function () {
       return 'the ' + teams[team.teamId].nickname;
     });
     const speechOutput = messages.getTankStandingsMessage(topTeams);
-    this.emit(':tellWithCard', speechOutput, messages.TANK_RANKINGS_CARD_TITLE,
+    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE,
         speechOutput);
   });
 
@@ -139,10 +139,10 @@ const unhandledRequestHandler = function () {
 
 const handlers = {};
 
-handlers[intents.GET_TANK_RANKINGS] = getTankStandingsHandler;
+handlers[intents.GET_TANK_STANDINGS] = getTankStandingsHandler;
 handlers[intents.GET_LOTTERY_SIMULATION] = getLotterySimulationHandler;
-handlers[intents.GET_TOP_N_TANK_RANKINGS] = getTopNTankStandingsHandler;
-handlers[intents.GET_TEAM_RANKINGS] = getTeamStandingsHandler;
+handlers[intents.GET_TOP_N_TANK_STANDINGS] = getTopNTankStandingsHandler;
+handlers[intents.GET_TEAM_STANDINGS] = getTeamStandingsHandler;
 handlers[intents.AMAZON_HELP] = amazonHelpHandler;
 handlers[intents.AMAZON_CANCEL] = amazonCancelHandler;
 handlers[intents.AMAZON_STOP] = amazonStopHandler;

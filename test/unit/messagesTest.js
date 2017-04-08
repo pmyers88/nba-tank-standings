@@ -7,7 +7,7 @@ chai.should();
 
 describe('Messages', function () {
   it('should contain message keys', function () {
-    messages.should.contain.keys('TANK_RANKINGS_CARD_TITLE', 'HELP_MESSAGE', 'STOP_MESSAGE', 'UNHANDLED_MESSAGE',
+    messages.should.contain.keys('TANK_STANDINGS_CARD_TITLE', 'HELP_MESSAGE', 'STOP_MESSAGE', 'UNHANDLED_MESSAGE',
         'WELCOME_MESSAGE', 'WELCOME_REPROMPT');
   });
 

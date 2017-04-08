@@ -8,7 +8,7 @@ const helpMessage = 'Try asking, what are the tank standings, tell me the top 5 
 const messages = {
   HELP_MESSAGE: helpMessage,
   STOP_MESSAGE: 'Ok, goodbye!',
-  TANK_RANKINGS_CARD_TITLE: 'NBA Tank Standings',
+  TANK_STANDINGS_CARD_TITLE: 'NBA Tank Standings',
   UNHANDLED_MESSAGE: 'Sorry, I don\'t know how to handle that request. ' + helpMessage,
   WELCOME_MESSAGE: 'Welcome to NBA Tank Standings, the app for finding out the latest info about the NBA draft lottery. ' +
       helpMessage,
