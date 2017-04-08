@@ -86,7 +86,7 @@ const getTeamStandingsHandler = function () {
 
     standingsRequest.catch(error => {
       console.error(error.message);
-      this.emit(':tell', 'An error occurred');
+      this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   } else {
     this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);

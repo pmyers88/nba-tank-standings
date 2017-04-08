@@ -188,6 +188,38 @@ describe('Handlers', function () {
       const message = 'Sorry, I could not find a team named Eagles. Please ask again.';
       shared.shouldBehaveLikeAskWithReprompt(message, message);
     });
+
+    describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
+      let handleRequest;
+
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': '76ers standings'
+            }
+          }
+        });
+
+        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const expected = {statusCode: 400, json: {}};
+        handleRequest.callsArgWith(1, expected);
+
+        const callLambdaStandingsErrorFn = callLambdaFn.bind(this);
+        callLambdaStandingsErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+        NBAClient._handleRequest.restore();
+      });
+
+      const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
+      shared.shouldBehaveLikeTell(message);
+    });
   });
 
   describe('#AMAZON.HelpIntent', function () {
