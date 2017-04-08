@@ -6,9 +6,12 @@ process.env.APP_ID = 'amzn1.ask.skill.UUID';
 
 const lambdaLocal = require('lambda-local');
 const chai = require('chai');
+const sinon = require('sinon');
+
 const index = require('../../index');
 const shared = require('./sharedBehavior');
 const intentRequest = require('../fixtures/intentRequest');
+const NBAClient = require('../../src/NBAClient');
 
 chai.should();
 
@@ -56,22 +59,52 @@ describe('Handlers', function () {
   });
 
   describe('#GetTankStandings', function () {
-    before(function (done) {
-      const event = intentRequest.getRequest({
-        'name': 'GetTankStandings',
-        'slots': {}
+    it('should behave like tell with card when there are no errors', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTankStandings',
+          'slots': {}
+        });
+        const callLambdaTankFn = callLambdaFn.bind(this);
+        callLambdaTankFn(done, event);
       });
-      const callLambdaTankFn = callLambdaFn.bind(this);
-      callLambdaTankFn(done, event);
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const text = `The top ${process.env.NUM_TEAMS} teams in the tank standings are the`;
+      const cardTitle = 'NBA Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
     });
 
-    after(function () {
-      this.done = null;
-      this.err = null;
+    describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
+      let handleRequest;
+
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTankStandings',
+          'slots': {}
+        });
+
+        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const expected = {statusCode: 400, json: {}};
+        handleRequest.callsArgWith(1, expected);
+
+        const callLambdaTankErrorFn = callLambdaFn.bind(this);
+        callLambdaTankErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+        NBAClient._handleRequest.restore();
+      });
+
+      const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
+      shared.shouldBehaveLikeTell(message);
     });
-    const text = `The top ${process.env.NUM_TEAMS} teams in the tank standings are the`;
-    const cardTitle = 'NBA Tank Standings';
-    shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
   });
 
   describe('#GetLotterySimulation', function () {
@@ -83,28 +116,54 @@ describe('Handlers', function () {
   });
 
   describe('#GetTeamStandings', function () {
-    before(function (done) {
-      const event = intentRequest.getRequest({
-        'name': 'GetTeamStandings',
-        'slots': {
-          'Team': {
-            'name': 'Team',
-            'value': '76ers standings'
+    it('should behave like emit tell with card when there are no errors', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': '76ers standings'
+            }
           }
-        }
+        });
+        const callLambdaTeamRankFn = callLambdaFn.bind(this);
+        callLambdaTeamRankFn(done, event);
       });
-      const callLambdaTeamRankFn = callLambdaFn.bind(this);
-      callLambdaTeamRankFn(done, event);
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The 76ers are currently ranked';
+      const title = '76ers Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
 
-    after(function () {
-      this.done = null;
-      this.err = null;
-    });
+    it('should emit ask the user to repeat themselves when the Team slot is null', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': null
+            }
+          }
+        });
+        const callLambdaTeamRankErrorFn = callLambdaFn.bind(this);
+        callLambdaTeamRankErrorFn(done, event);
+      });
 
-    const message = 'The 76ers are currently ranked';
-    const title = '76ers Tank Standings';
-    shared.shouldBehaveLikeTellWithCard(message, title, message);
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'I couldn\'t find the team you asked about. Please repeat your request.';
+      shared.shouldBehaveLikeAskWithReprompt(message, message);
+    });
   });
 
   describe('#AMAZON.HelpIntent', function () {

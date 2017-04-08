@@ -31,8 +31,7 @@ const launchRequestHandler = function () {
 const getTankStandingsHandler = function () {
   console.info('Starting getTankStandingsHandler()');
 
-  const nbaClient = new NBAClient();
-  const standingsRequest = nbaClient.getStandingsRequest();
+  const standingsRequest = NBAClient.getStandingsRequest();
   standingsRequest.then(standingsResponse => {
     const topTeams = standingsResponse.slice(0, NUM_TEAMS).map(team => {
       return 'the ' + teams[team.teamId].nickname;
@@ -44,7 +43,7 @@ const getTankStandingsHandler = function () {
 
   standingsRequest.catch(error => {
     console.error(error.message);
-    this.emit(':tell', 'An error occurred');
+    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
   });
 
   console.info('Ending getTankStandingsHandler()');
@@ -63,8 +62,7 @@ const getTopNTankStandingsHandler = function () {
 const getTeamStandingsHandler = function () {
   console.info('Starting getTeamStandingsHandler()');
 
-  const nbaClient = new NBAClient();
-  const standingsRequest = nbaClient.getStandingsRequest();
+  const standingsRequest = NBAClient.getStandingsRequest();
   const teamSlot = this.event.request.intent.slots.Team;
   const teamName = teamSlot && teamSlot.value ? teamSlot.value : null;
 
@@ -91,7 +89,7 @@ const getTeamStandingsHandler = function () {
       this.emit(':tell', 'An error occurred');
     });
   } else {
-    this.emit(':tell', 'I didn\'t hear your request correctly.');
+    this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);
   }
 
   console.info('Ending amazonCancelHandler()');

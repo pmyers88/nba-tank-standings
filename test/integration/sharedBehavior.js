@@ -19,7 +19,6 @@ const sharedBehavior = {
 
   shouldBehaveLikeTellWithCard: function (ssml, cardTitle, cardText) {
     it('should return outputSpeech matching string', function () {
-      console.log(JSON.stringify(this.done.response));
       this.done.response.outputSpeech.ssml.should.have.string(ssml);
     });
 

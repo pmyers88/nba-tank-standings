@@ -7,12 +7,19 @@ chai.should();
 
 describe('Messages', function () {
   it('should contain message keys', function () {
-    messages.should.contain.keys('TANK_STANDINGS_CARD_TITLE', 'HELP_MESSAGE', 'STOP_MESSAGE', 'UNHANDLED_MESSAGE',
-        'WELCOME_MESSAGE', 'WELCOME_REPROMPT');
+    messages.should.contain.keys('HELP_MESSAGE',
+      'STANDINGS_REQUEST_ERROR',
+      'STOP_MESSAGE',
+      'TANK_STANDINGS_CARD_TITLE',
+      'TEAM_NOT_HEARD_ERROR',
+      'UNHANDLED_MESSAGE',
+      'WELCOME_MESSAGE',
+      'WELCOME_REPROMPT'
+    );
   });
 
-  it('should have 9 keys', function () {
-    _size(messages).should.equal(9);
+  it('should have 11 keys', function () {
+    _size(messages).should.equal(11);
   });
 
   describe('#getTankStandingsMessage', function () {
