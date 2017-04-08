@@ -178,11 +178,11 @@ describe('Handlers', function () {
   describe('#Unhandled', function () {
     before(function (done) {
       const event = intentRequest.getRequest({
-        'name': 'AMAZON.StopIntent',
+        'name': 'Unhandled',
         'slots': {}
       });
-      const callLambdaStopFn = callLambdaFn.bind(this);
-      callLambdaStopFn(done, event);
+      const callLambdaUnhandledFn = callLambdaFn.bind(this);
+      callLambdaUnhandledFn(done, event);
     });
 
     after(function () {
@@ -190,6 +190,9 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    shared.shouldBehaveLikeTell('Ok, goodbye!');
+    const helpText = 'Try asking, what are the tank rankings, tell me the top 5 teams, where do the Sixers stand, or ' +
+        'simulate the lottery. Now, what can I help you with?';
+    const unhandledText = 'Sorry, I don\'t know how to handle that request. ' + helpText;
+    shared.shouldBehaveLikeAskWithReprompt(unhandledText, helpText);
   });
 });

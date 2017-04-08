@@ -7,11 +7,11 @@ chai.should();
 
 describe('Messages', function () {
   it('should contain message keys', function () {
-    messages.should.contain.keys('HELP_MESSAGE', 'STOP_MESSAGE', 'WELCOME_MESSAGE', 'WELCOME_REPROMPT');
+    messages.should.contain.keys('HELP_MESSAGE', 'STOP_MESSAGE', 'UNHANDLED_MESSAGE', 'WELCOME_MESSAGE', 'WELCOME_REPROMPT');
   });
 
-  it('should have 6 keys', function () {
-    _size(messages).should.equal(6);
+  it('should have 7 keys', function () {
+    _size(messages).should.equal(7);
   });
 
   describe('#getTankRankingsMessage', function () {

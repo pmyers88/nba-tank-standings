@@ -113,6 +113,7 @@ const sessionEndedRequestHandler = function () {
 
 const unhandledRequestHandler = function () {
   console.info('Starting unhandledRequestHandler()');
+  this.emit(':ask', messages.UNHANDLED_MESSAGE, messages.HELP_MESSAGE);
   console.info('Ending unhandledRequestHandler()');
 };
 
