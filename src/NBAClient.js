@@ -39,13 +39,13 @@ class NBAClient {
             json: JSON.parse(rawData)
           };
         } catch (e) {
-          console.error(e.message);
+          console.error('NBAClient JSON error: ' + e.message);
         }
 
         resolve(responseJSON);
       });
     }).on('error', e => {
-      console.error(e.message);
+      console.error('NBA Client error: ' + e);
       reject(e);
     });
   }
