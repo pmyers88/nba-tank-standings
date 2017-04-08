@@ -92,7 +92,7 @@ const getTeamStandingsHandler = function () {
     this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);
   }
 
-  console.info('Ending amazonCancelHandler()');
+  console.info('Ending getTeamStandingsHandler()');
 };
 
 const amazonHelpHandler = function () {

@@ -18,8 +18,8 @@ describe('Messages', function () {
     );
   });
 
-  it('should have 11 keys', function () {
-    _size(messages).should.equal(11);
+  it('should have 12 keys', function () {
+    _size(messages).should.equal(12);
   });
 
   describe('#getTankStandingsMessage', function () {
@@ -40,6 +40,20 @@ describe('Messages', function () {
       expected = 'The top 5 teams in the tank standings are the Nets, the Suns, the Lakers, the Magic, and the 76ers.';
       messages.getTankStandingsMessage(['the Nets', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers']).should.equal(
           expected);
+    });
+  });
+
+  describe('#getTankStandingsCardTitle', function () {
+    it('should return the card title for a given team', function () {
+      const expected = '76ers Tank Standings';
+      messages.getTankStandingsCardTitle('76ers').should.equal(expected);
+    });
+  });
+
+  describe('#getTeamNotFoundError', function () {
+    it('should return a message saying that the team was not found', function () {
+      const expected = 'Sorry, I could not find a team named Eagles. Please ask again.';
+      messages.getTeamNotFoundError('Eagles').should.equal(expected);
     });
   });
 

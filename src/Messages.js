@@ -22,6 +22,9 @@ const messages = {
   getTankStandingsCardTitle: (team) => {
     return `${team} Tank Standings`;
   },
+  getTeamNotFoundError: (team) => {
+    return `Sorry, I could not find a team named ${team}. Please ask again.`;
+  },
   getTeamStandingsMessage: (team, ranking) => {
     return `The ${team} are currently ranked ${ordinalize(ranking.toString())} in the tank standings.`;
   }
