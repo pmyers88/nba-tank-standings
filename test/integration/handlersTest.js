@@ -112,7 +112,54 @@ describe('Handlers', function () {
   });
 
   describe('#GetTopNTankStandings', function () {
+    describe('should behave like tell with card when there are no errors', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTopNTankStandings',
+          'slots': {
+            'NumTeams': {
+              'name': 'NumTeams',
+              'value': '7'
+            }
+          }
+        });
+        const callLambdaTopNFn = callLambdaFn.bind(this);
+        callLambdaTopNFn(done, event);
+      });
 
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const text = `The top 7 teams in the tank standings are the`;
+      const cardTitle = 'NBA Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
+    });
+
+    describe('should emit ask the user to repeat themselves when the NumTeams slot is null', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTopNTankStandings',
+          'slots': {
+            'Team': {
+              'name': 'NumTeams',
+              'value': null
+            }
+          }
+        });
+        const callLambdaTopNErrorFn = callLambdaFn.bind(this);
+        callLambdaTopNErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'I couldn\'t hear the number of teams you asked for. Please repeat your request.';
+      shared.shouldBehaveLikeAskWithReprompt(message, message);
+    });
   });
 
   describe('#GetTeamStandings', function () {

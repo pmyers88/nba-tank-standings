@@ -6,6 +6,23 @@ const events = require('./events');
 
 const NUM_TEAMS = process.env.NUM_TEAMS;
 
+const _getTopNTeams = function (numTeams) {
+  const standingsRequest = NBAClient.getStandingsRequest();
+  standingsRequest.then(standingsResponse => {
+    const topTeams = standingsResponse.slice(0, numTeams).map(team => {
+      return 'the ' + teams[team.teamId].nickname;
+    });
+    const speechOutput = messages.getTankStandingsMessage(topTeams);
+    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE,
+        speechOutput);
+  });
+
+  standingsRequest.catch(error => {
+    console.error(error.message);
+    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
+  });
+};
+
 const newSessionRequestHandler = function () {
   console.info('Starting newSessionRequestHandler()');
 
@@ -31,20 +48,8 @@ const launchRequestHandler = function () {
 const getTankStandingsHandler = function () {
   console.info('Starting getTankStandingsHandler()');
 
-  const standingsRequest = NBAClient.getStandingsRequest();
-  standingsRequest.then(standingsResponse => {
-    const topTeams = standingsResponse.slice(0, NUM_TEAMS).map(team => {
-      return 'the ' + teams[team.teamId].nickname;
-    });
-    const speechOutput = messages.getTankStandingsMessage(topTeams);
-    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE,
-        speechOutput);
-  });
-
-  standingsRequest.catch(error => {
-    console.error(error.message);
-    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
-  });
+  const getTopNTeams = _getTopNTeams.bind(this);
+  getTopNTeams(NUM_TEAMS);
 
   console.info('Ending getTankStandingsHandler()');
 };
@@ -56,6 +61,17 @@ const getLotterySimulationHandler = function () {
 
 const getTopNTankStandingsHandler = function () {
   console.info('Starting getTopNTankStandingsHandler()');
+
+  const numTeamsSlot = this.event.request.intent.slots.NumTeams;
+  const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
+
+  if (numTeams) {
+    const getTopNTeams = _getTopNTeams.bind(this);
+    getTopNTeams(numTeams);
+  } else {
+    this.emit(':ask', messages.NUMBER_NOT_HEARD, messages.NUMBER_NOT_HEARD);
+  }
+
   console.info('Ending getTopNTankStandingsHandler()');
 };
 
