@@ -6,6 +6,7 @@ const helpMessage = 'Try asking, what are the tank rankings, tell me the top 5 t
     'simulate the lottery. Now, what can I help you with?';
 
 const messages = {
+  GET_TANK_RANKINGS_CARD_TITLE: 'NBA Tank Standings',
   HELP_MESSAGE: helpMessage,
   STOP_MESSAGE: 'Ok, goodbye!',
   UNHANDLED_MESSAGE: 'Sorry, I don\'t know how to handle that request. ' + helpMessage,

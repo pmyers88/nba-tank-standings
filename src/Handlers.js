@@ -34,7 +34,9 @@ const getTankRankingsHandler = function () {
     const topTeams = standingsResponse.slice(0, NUM_TEAMS).map(team => {
       return 'the ' + teams[team.teamId].nickname;
     });
-    this.emit(':tell', messages.getTankRankingsMessage(topTeams));
+    const speechOutput = messages.getTankRankingsMessage(topTeams);
+    this.emit(':tellWithCard', speechOutput, messages.GET_TANK_RANKINGS_CARD_TITLE,
+        speechOutput);
   });
 
   standingsRequest.catch(error => {

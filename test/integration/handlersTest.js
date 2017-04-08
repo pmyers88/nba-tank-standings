@@ -69,8 +69,9 @@ describe('Handlers', function () {
       this.done = null;
       this.err = null;
     });
-
-    shared.shouldBehaveLikeTell(`The top ${process.env.NUM_TEAMS} teams in the tank rankings are the`);
+    const text = `The top ${process.env.NUM_TEAMS} teams in the tank rankings are the`;
+    const cardTitle = 'NBA Tank Standings';
+    shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
   });
 
   describe('#GetLotterySimulation', function () {
