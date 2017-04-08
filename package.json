@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
     "lambda-local": "^1.4.2",
     "mocha": "^3.2.0",
     "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
