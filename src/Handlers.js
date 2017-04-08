@@ -22,12 +22,15 @@ const newSessionRequestHandler = function () {
 
 const launchRequestHandler = function () {
   console.info('Starting launchRequestHandler()');
+
   this.emit(':ask', messages.WELCOME_MESSAGE, messages.WELCOME_REPROMPT);
+
   console.info('Ending launchRequestHandler()');
 };
 
 const getTankStandingsHandler = function () {
   console.info('Starting getTankStandingsHandler()');
+
   const nbaClient = new NBAClient();
   const standingsRequest = nbaClient.getStandingsRequest();
   standingsRequest.then(standingsResponse => {
@@ -35,7 +38,7 @@ const getTankStandingsHandler = function () {
       return 'the ' + teams[team.teamId].nickname;
     });
     const speechOutput = messages.getTankStandingsMessage(topTeams);
-    this.emit(':tellWithCard', speechOutput, messages.GET_TANK_RANKINGS_CARD_TITLE,
+    this.emit(':tellWithCard', speechOutput, messages.TANK_RANKINGS_CARD_TITLE,
         speechOutput);
   });
 
@@ -43,6 +46,7 @@ const getTankStandingsHandler = function () {
     console.error(error.message);
     this.emit(':tell', 'An error occurred');
   });
+
   console.info('Ending getTankStandingsHandler()');
 };
 
@@ -58,6 +62,7 @@ const getTopNTankStandingsHandler = function () {
 
 const getTeamStandingsHandler = function () {
   console.info('Starting getTeamStandingsHandler()');
+
   const nbaClient = new NBAClient();
   const standingsRequest = nbaClient.getStandingsRequest();
   const teamSlot = this.event.request.intent.slots.Team;
@@ -73,7 +78,9 @@ const getTeamStandingsHandler = function () {
         return teamName.includes(teams[team.teamId].nickname);
       });
       if (team) {
-        this.emit(':tell', messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1));
+        const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1);
+        this.emit(':tellWithCard', teamStandingsText, messages.getTankStandingsCardTitle(officialTeamNickname),
+            teamStandingsText);
       } else {
         this.emit(':tell', `Could not find the team ${teamName}`);
       }
@@ -86,36 +93,47 @@ const getTeamStandingsHandler = function () {
   } else {
     this.emit(':tell', 'I didn\'t hear your request correctly.');
   }
+
   console.info('Ending amazonCancelHandler()');
 };
 
 const amazonHelpHandler = function () {
   console.info('Starting amazonHelpHandler()');
+
   this.emit(':ask', messages.HELP_MESSAGE, messages.HELP_MESSAGE);
+
   console.info('Ending amazonHelpHandler()');
 };
 
 const amazonCancelHandler = function () {
   console.info('Starting amazonCancelHandler()');
+
   this.emit(events.SESSION_ENDED);
+
   console.info('Ending amazonCancelHandler()');
 };
 
 const amazonStopHandler = function () {
   console.info('Starting amazonStopHandler()');
+
   this.emit(events.SESSION_ENDED);
+
   console.info('Ending amazonStopHandler()');
 };
 
 const sessionEndedRequestHandler = function () {
   console.info('Starting newSessionRequestHandler()');
+
   this.emit(':tell', messages.STOP_MESSAGE);
+
   console.info('Ending newSessionRequestHandler()');
 };
 
 const unhandledRequestHandler = function () {
   console.info('Starting unhandledRequestHandler()');
+
   this.emit(':ask', messages.UNHANDLED_MESSAGE, messages.HELP_MESSAGE);
+
   console.info('Ending unhandledRequestHandler()');
 };
 

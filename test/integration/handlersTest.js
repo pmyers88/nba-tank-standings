@@ -102,7 +102,9 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    shared.shouldBehaveLikeTell(`The 76ers are currently ranked`);
+    const message = 'The 76ers are currently ranked';
+    const title = '76ers Tank Standings';
+    shared.shouldBehaveLikeTellWithCard(message, title, message);
   });
 
   describe('#AMAZON.HelpIntent', function () {
