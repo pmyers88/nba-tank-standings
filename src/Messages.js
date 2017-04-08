@@ -7,6 +7,7 @@ const helpMessage = 'Try asking, what are the tank standings, tell me the top 5 
 
 const messages = {
   HELP_MESSAGE: helpMessage,
+  NUMBER_NOT_HEARD: 'I couldn\'t hear the number of teams you asked for. Please repeat your request.',
   STANDINGS_REQUEST_ERROR: 'There was an error trying to fetch the latest NBA standings. Please try again later.',
   STOP_MESSAGE: 'Ok, goodbye!',
   TANK_STANDINGS_CARD_TITLE: 'NBA Tank Standings',

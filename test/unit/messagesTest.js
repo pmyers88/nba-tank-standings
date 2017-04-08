@@ -8,6 +8,7 @@ chai.should();
 describe('Messages', function () {
   it('should contain message keys', function () {
     messages.should.contain.keys('HELP_MESSAGE',
+      'NUMBER_NOT_HEARD',
       'STANDINGS_REQUEST_ERROR',
       'STOP_MESSAGE',
       'TANK_STANDINGS_CARD_TITLE',
@@ -18,8 +19,8 @@ describe('Messages', function () {
     );
   });
 
-  it('should have 12 keys', function () {
-    _size(messages).should.equal(12);
+  it('should have 13 keys', function () {
+    _size(messages).should.equal(13);
   });
 
   describe('#getTankStandingsMessage', function () {
