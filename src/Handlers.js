@@ -80,7 +80,7 @@ const getTeamStandingsHandler = function () {
         this.emit(':tellWithCard', teamStandingsText, messages.getTankStandingsCardTitle(officialTeamNickname),
             teamStandingsText);
       } else {
-        this.emit(':tell', `Could not find the team ${teamName}`);
+        this.emit(':ask', messages.getTeamNotFoundError(teamName), messages.getTeamNotFoundError(teamName));
       }
     });
 

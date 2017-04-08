@@ -59,7 +59,7 @@ describe('Handlers', function () {
   });
 
   describe('#GetTankStandings', function () {
-    it('should behave like tell with card when there are no errors', function () {
+    describe('should behave like tell with card when there are no errors', function () {
       before(function (done) {
         const event = intentRequest.getRequest({
           'name': 'GetTankStandings',
@@ -116,7 +116,7 @@ describe('Handlers', function () {
   });
 
   describe('#GetTeamStandings', function () {
-    it('should behave like emit tell with card when there are no errors', function () {
+    describe('should behave like emit tell with card when there are no errors', function () {
       before(function (done) {
         const event = intentRequest.getRequest({
           'name': 'GetTeamStandings',
@@ -141,7 +141,7 @@ describe('Handlers', function () {
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
 
-    it('should emit ask the user to repeat themselves when the Team slot is null', function () {
+    describe('should emit ask the user to repeat themselves when the Team slot is null', function () {
       before(function (done) {
         const event = intentRequest.getRequest({
           'name': 'GetTeamStandings',
@@ -162,6 +162,30 @@ describe('Handlers', function () {
       });
 
       const message = 'I couldn\'t find the team you asked about. Please repeat your request.';
+      shared.shouldBehaveLikeAskWithReprompt(message, message);
+    });
+
+    describe('should emit ask the user to repeat themselves when the Team slot is not an NBA team', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'Eagles'
+            }
+          }
+        });
+        const callLambdaTeamNotFoundErrorFn = callLambdaFn.bind(this);
+        callLambdaTeamNotFoundErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'Sorry, I could not find a team named Eagles. Please ask again.';
       shared.shouldBehaveLikeAskWithReprompt(message, message);
     });
   });
