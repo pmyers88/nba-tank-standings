@@ -1,4 +1,5 @@
 const chai = require('chai');
+const _size = require('lodash/size');
 
 const messages = require('../../src/messages');
 
@@ -6,7 +7,11 @@ chai.should();
 
 describe('Messages', function () {
   it('should contain message keys', function () {
-    messages.should.contain.keys('HELP_MESSAGE', 'STOP_MESSAGE');
+    messages.should.contain.keys('HELP_MESSAGE', 'STOP_MESSAGE', 'WELCOME_MESSAGE', 'WELCOME_REPROMPT');
+  });
+
+  it('should have 6 keys', function () {
+    _size(messages).should.equal(6);
   });
 
   describe('#getTankRankingsMessage', function () {
