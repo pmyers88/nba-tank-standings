@@ -10,7 +10,8 @@ const teams = {
     'nickname': 'Hawks',
     'urlName': 'hawks',
     'confName': 'East',
-    'divName': 'Southeast'
+    'divName': 'Southeast',
+    'owePicksTo': null
   },
   '1610612738': {
     'isNBAFranchise': true,
@@ -23,7 +24,11 @@ const teams = {
     'nickname': 'Celtics',
     'urlName': 'celtics',
     'confName': 'East',
-    'divName': 'Atlantic'
+    'divName': 'Atlantic',
+    'owePicksTo': [{
+      'recipientId': '1610612751',
+      'condition': (ownPick, otherPick) => otherPick < ownPick
+    }]
   },
   '1610612751': {
     'isNBAFranchise': true,
@@ -36,7 +41,11 @@ const teams = {
     'nickname': 'Nets',
     'urlName': 'nets',
     'confName': 'East',
-    'divName': 'Atlantic'
+    'divName': 'Atlantic',
+    'owePicksTo': [{
+      'recipientId': '1610612738',
+      'condition': (ownPick, otherPick) => ownPick < otherPick
+    }]
   },
   '1610612766': {
     'isNBAFranchise': true,
@@ -49,7 +58,8 @@ const teams = {
     'nickname': 'Hornets',
     'urlName': 'hornets',
     'confName': 'East',
-    'divName': 'Southeast'
+    'divName': 'Southeast',
+    'owePicksTo': null
   },
   '1610612741': {
     'isNBAFranchise': true,
@@ -62,7 +72,8 @@ const teams = {
     'nickname': 'Bulls',
     'urlName': 'bulls',
     'confName': 'East',
-    'divName': 'Central'
+    'divName': 'Central',
+    'owePicksTo': null
   },
   '1610612739': {
     'isNBAFranchise': true,
@@ -75,7 +86,11 @@ const teams = {
     'nickname': 'Cavaliers',
     'urlName': 'cavaliers',
     'confName': 'East',
-    'divName': 'Central'
+    'divName': 'Central',
+    'owePicksTo': [{
+      'recipientId': '1610612757',
+      'condition': (ownPick, otherPick) => true
+    }]
   },
   '1610612742': {
     'isNBAFranchise': true,
@@ -88,7 +103,11 @@ const teams = {
     'nickname': 'Mavericks',
     'urlName': 'mavericks',
     'confName': 'West',
-    'divName': 'Southwest'
+    'divName': 'Southwest',
+    'owePicksTo': [{
+      'recipientId': '1610612755',
+      'condition': (ownPick, otherPick) => ownPick > 18
+    }]
   },
   '1610612743': {
     'isNBAFranchise': true,
@@ -101,7 +120,8 @@ const teams = {
     'nickname': 'Nuggets',
     'urlName': 'nuggets',
     'confName': 'West',
-    'divName': 'Northwest'
+    'divName': 'Northwest',
+    'owePicksTo': null
   },
   '1610612765': {
     'isNBAFranchise': true,
@@ -114,7 +134,8 @@ const teams = {
     'nickname': 'Pistons',
     'urlName': 'pistons',
     'confName': 'East',
-    'divName': 'Central'
+    'divName': 'Central',
+    'owePicksTo': null
   },
   '1610612744': {
     'isNBAFranchise': true,
@@ -127,7 +148,11 @@ const teams = {
     'nickname': 'Warriors',
     'urlName': 'warriors',
     'confName': 'West',
-    'divName': 'Pacific'
+    'divName': 'Pacific',
+    'owePicksTo': [{
+      'recipientId': '1610612762',
+      'condition': (ownPick, otherPick) => true
+    }]
   },
   '1610612745': {
     'isNBAFranchise': true,
@@ -140,7 +165,11 @@ const teams = {
     'nickname': 'Rockets',
     'urlName': 'rockets',
     'confName': 'West',
-    'divName': 'Southwest'
+    'divName': 'Southwest',
+    'owePicksTo': [{
+      'recipientId': '1610612747',
+      'condition': (ownPick, otherPick) => true
+    }]
   },
   '1610612754': {
     'isNBAFranchise': true,
@@ -153,7 +182,8 @@ const teams = {
     'nickname': 'Pacers',
     'urlName': 'pacers',
     'confName': 'East',
-    'divName': 'Central'
+    'divName': 'Central',
+    'owePicksTo': null
   },
   '1610612746': {
     'isNBAFranchise': true,
@@ -166,7 +196,15 @@ const teams = {
     'nickname': 'Clippers',
     'urlName': 'clippers',
     'confName': 'West',
-    'divName': 'Pacific'
+    'divName': 'Pacific',
+    'owePicksTo': [{
+      'recipientId': '1610612761',
+      'condition': (ownPick, otherPick) => ownPick < otherPick
+    }, {
+      'recipientId': '1610612753',
+      'otherTeamId': '1610612761',
+      'condition': (ownPick, otherPick) => ownPick > otherPick
+    }]
   },
   '1610612747': {
     'isNBAFranchise': true,
@@ -179,7 +217,11 @@ const teams = {
     'nickname': 'Lakers',
     'urlName': 'lakers',
     'confName': 'West',
-    'divName': 'Pacific'
+    'divName': 'Pacific',
+    'owePicksTo': [{
+      'recipientId': '1610612755',
+      'condition': (ownPick, otherPick) => ownPick > 3
+    }]
   },
   '1610612763': {
     'isNBAFranchise': true,
@@ -192,7 +234,11 @@ const teams = {
     'nickname': 'Grizzlies',
     'urlName': 'grizzlies',
     'confName': 'West',
-    'divName': 'Southwest'
+    'divName': 'Southwest',
+    'owePicksTo': [{
+      'recipientId': '1610612757',
+      'condition': (ownPick, otherPick) => ownPick > 5
+    }]
   },
   '1610612748': {
     'isNBAFranchise': true,
@@ -205,7 +251,8 @@ const teams = {
     'nickname': 'Heat',
     'urlName': 'heat',
     'confName': 'East',
-    'divName': 'Southeast'
+    'divName': 'Southeast',
+    'owePicksTo': null
   },
   '1610612749': {
     'isNBAFranchise': true,
@@ -218,7 +265,8 @@ const teams = {
     'nickname': 'Bucks',
     'urlName': 'bucks',
     'confName': 'East',
-    'divName': 'Central'
+    'divName': 'Central',
+    'owePicksTo': null
   },
   '1610612750': {
     'isNBAFranchise': true,
@@ -231,7 +279,8 @@ const teams = {
     'nickname': 'Timberwolves',
     'urlName': 'timberwolves',
     'confName': 'West',
-    'divName': 'Northwest'
+    'divName': 'Northwest',
+    'owePicksTo': null
   },
   '1610612740': {
     'isNBAFranchise': true,
@@ -244,7 +293,11 @@ const teams = {
     'nickname': 'Pelicans',
     'urlName': 'pelicans',
     'confName': 'West',
-    'divName': 'Southwest'
+    'divName': 'Southwest',
+    'owePicksTo': [{
+      'recipientId': '1610612758',
+      'condition': (ownPick, otherPick) => ownPick > 3
+    }]
   },
   '1610612752': {
     'isNBAFranchise': true,
@@ -257,7 +310,8 @@ const teams = {
     'nickname': 'Knicks',
     'urlName': 'knicks',
     'confName': 'East',
-    'divName': 'Atlantic'
+    'divName': 'Atlantic',
+    'owePicksTo': null
   },
   '1610612760': {
     'isNBAFranchise': true,
@@ -270,7 +324,8 @@ const teams = {
     'nickname': 'Thunder',
     'urlName': 'thunder',
     'confName': 'West',
-    'divName': 'Northwest'
+    'divName': 'Northwest',
+    'owePicksTo': null
   },
   '1610612753': {
     'isNBAFranchise': true,
@@ -283,7 +338,8 @@ const teams = {
     'nickname': 'Magic',
     'urlName': 'magic',
     'confName': 'East',
-    'divName': 'Southeast'
+    'divName': 'Southeast',
+    'owePicksTo': null
   },
   '1610612755': {
     'isNBAFranchise': true,
@@ -296,7 +352,11 @@ const teams = {
     'nickname': '76ers',
     'urlName': 'sixers',
     'confName': 'East',
-    'divName': 'Atlantic'
+    'divName': 'Atlantic',
+    'owePicksTo': [{
+      'recipientId': '1610612758',
+      'condition': (ownPick, otherPick) => otherPick < ownPick
+    }]
   },
   '1610612756': {
     'isNBAFranchise': true,
@@ -309,7 +369,8 @@ const teams = {
     'nickname': 'Suns',
     'urlName': 'suns',
     'confName': 'West',
-    'divName': 'Pacific'
+    'divName': 'Pacific',
+    'owePicksTo': null
   },
   '1610612757': {
     'isNBAFranchise': true,
@@ -322,7 +383,8 @@ const teams = {
     'nickname': 'Trail Blazers',
     'urlName': 'blazers',
     'confName': 'West',
-    'divName': 'Northwest'
+    'divName': 'Northwest',
+    'owePicksTo': null
   },
   '1610612758': {
     'isNBAFranchise': true,
@@ -335,7 +397,14 @@ const teams = {
     'nickname': 'Kings',
     'urlName': 'kings',
     'confName': 'West',
-    'divName': 'Pacific'
+    'divName': 'Pacific',
+    'owePicksTo': [{
+      'recipientId': '1610612741',
+      'condition': (ownPick, otherPick) => ownPick > 10
+    }, {
+      'recipientId': '1610612755',
+      'condition': (ownPick, otherPick) => ownPick < 11 && ownPick < otherPick
+    }]
   },
   '1610612759': {
     'isNBAFranchise': true,
@@ -348,7 +417,8 @@ const teams = {
     'nickname': 'Spurs',
     'urlName': 'spurs',
     'confName': 'West',
-    'divName': 'Southwest'
+    'divName': 'Southwest',
+    'owePicksTo': null
   },
   '1610612761': {
     'isNBAFranchise': true,
@@ -361,7 +431,12 @@ const teams = {
     'nickname': 'Raptors',
     'urlName': 'raptors',
     'confName': 'East',
-    'divName': 'Atlantic'
+    'divName': 'Atlantic',
+    'owePicksTo': [{
+      'recipientId': '1610612753',
+      'otherTeamId': '1610612746',
+      'condition': (ownPick, otherPick) => ownPick > otherPick
+    }]
   },
   '1610612762': {
     'isNBAFranchise': true,
@@ -372,9 +447,9 @@ const teams = {
     'tricode': 'UTA',
     'teamId': '1610612762',
     'nickname': 'Jazz',
-    'urlName': 'jazz',
     'confName': 'West',
-    'divName': 'Northwest'
+    'divName': 'Northwest',
+    'owePicksTo': null
   },
   '1610612764': {
     'isNBAFranchise': true,
@@ -387,7 +462,11 @@ const teams = {
     'nickname': 'Wizards',
     'urlName': 'wizards',
     'confName': 'East',
-    'divName': 'Southeast'
+    'divName': 'Southeast',
+    'owePicksTo': [{
+      'recipientId': '1610612751',
+      'condition': (ownPick, otherPick) => ownPick > 14
+    }]
   }
 };
 
