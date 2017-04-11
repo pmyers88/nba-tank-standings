@@ -9,7 +9,8 @@
     "clean": "rm -rf build",
     "deploy": "yarn run lint && node-lambda deploy",
     "lint": "semistandard",
-    "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan"
+    "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan",
+    "coverage": "istanbul cover _mocha -- ./test/**/*.js --reporter nyan"
   },
   "repository": "https://github.com/pmyers88/nba-tank-standings",
   "author": "Phil Myers <prm5031@gmail.com>",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
     "lambda-local": "^1.4.2",
     "mocha": "^3.2.0",
     "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",

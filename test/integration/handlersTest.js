@@ -69,7 +69,7 @@ describe('Handlers', function () {
         const event = intentRequest.getRequest({
           'name': 'GetTankStandings',
           'slots': {}
-        });
+        }, 'IntentRequest');
         const callLambdaTankFn = callLambdaFn.bind(this);
         callLambdaTankFn(done, event);
       });
@@ -203,7 +203,7 @@ describe('Handlers', function () {
         const event = intentRequest.getRequest({
           'name': 'GetTopNTankStandings',
           'slots': {
-            'Team': {
+            'NumTeams': {
               'name': 'NumTeams',
               'value': null
             }
@@ -220,6 +220,38 @@ describe('Handlers', function () {
 
       const message = 'I couldn\'t hear the number of teams you asked for. Please repeat your request.';
       shared.shouldBehaveLikeAskWithReprompt(message, message);
+    });
+
+    describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
+      let handleRequest;
+
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTopNTankStandings',
+          'slots': {
+            'NumTeams': {
+              'name': 'NumTeams',
+              'value': '7'
+            }
+          }
+        });
+
+        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const expected = {statusCode: 400, json: {}};
+        handleRequest.callsArgWith(1, expected);
+
+        const callLambdaTopNReqErrorFn = callLambdaFn.bind(this);
+        callLambdaTopNReqErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+        NBAClient._handleRequest.restore();
+      });
+
+      const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
+      shared.shouldBehaveLikeTell(message);
     });
   });
 
@@ -406,7 +438,7 @@ describe('Handlers', function () {
       const event = intentRequest.getRequest({
         'name': 'Unhandled',
         'slots': {}
-      });
+      }, 'IntentRequest');
       const callLambdaUnhandledFn = callLambdaFn.bind(this);
       callLambdaUnhandledFn(done, event);
     });

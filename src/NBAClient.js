@@ -39,6 +39,7 @@ class NBAClient {
           };
         } catch (e) {
           winston.error('NBAClient JSON error: ' + e.message);
+          reject(e);
         }
 
         resolve(responseJSON);

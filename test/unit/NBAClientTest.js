@@ -111,6 +111,21 @@ describe('NBAClient', function () {
       });
     });
 
+    it('should handle a json error correctly', function (done) {
+      const response = new PassThrough();
+      response.statusCode = 200;
+      response.write('{"foo": "bar"');
+      response.end();
+
+      const request = new PassThrough();
+      get.callsArgWith(1, response).returns(request);
+
+      NBAClient._handleRequest({hostname: endpoint, path: standingsPath}, () => {}, error => {
+        error.message.should.equal('Unexpected end of JSON input');
+        done();
+      });
+    });
+
     it('should reject the promise on error', function (done) {
       const expected = 'there was an error with your request';
       const request = new PassThrough();
