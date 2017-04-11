@@ -1,4 +1,5 @@
 const winston = require('winston');
+const _ = require('lodash');
 
 const NBAClient = require('./NBAClient');
 const teams = require('./teams');
@@ -9,19 +10,25 @@ const events = require('./events');
 const NUM_TEAMS = process.env.NUM_TEAMS;
 
 const _getTopNTeams = function (numTeams) {
-  const standingsRequest = NBAClient.getStandingsRequest();
-  standingsRequest.then(standingsResponse => {
-    const topTeams = standingsResponse.slice(0, numTeams).map(team => {
-      return 'the ' + teams[team.teamId].nickname;
-    });
-    const speechOutput = messages.getTankStandingsMessage(topTeams);
-    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE,
-        speechOutput);
-  });
-
-  standingsRequest.catch(error => {
-    winston.error(error.message);
-    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
+  return new Promise((resolve, reject) => {
+    const standingsRequest = NBAClient.getStandingsRequest();
+    standingsRequest.then(standingsResponse => {
+      const topStandings = _.slice(standingsResponse, 0, numTeams);
+      const topTeams = topStandings.map((team, index) => {
+        const teamInfo = teams[team.teamId];
+        let teamName = teamInfo.nickname;
+        _.each(teamInfo.owePicksTo || [], possibleTrade => {
+          const otherTeamIndex = standingsResponse.findIndex(team => {
+            return team.teamId === (possibleTrade.otherTeamId || possibleTrade.recipientId);
+          });
+          if (possibleTrade.condition(index + 1, otherTeamIndex + 1)) {
+            teamName = teams[possibleTrade.recipientId].nickname;
+          }
+        });
+        return 'the ' + teamName;
+      });
+      resolve(topTeams);
+    }).catch(reject);
   });
 };
 
@@ -50,8 +57,14 @@ const launchRequestHandler = function () {
 const getTankStandingsHandler = function () {
   winston.info('Starting getTankStandingsHandler()');
 
-  const getTopNTeams = _getTopNTeams.bind(this);
-  getTopNTeams(NUM_TEAMS);
+  const getTopNTeams = _getTopNTeams(NUM_TEAMS);
+  getTopNTeams.then(topTeams => {
+    const speechOutput = messages.getTankStandingsMessage(topTeams);
+    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
+  }).catch(error => {
+    winston.error(error.message);
+    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
+  });
 
   winston.info('Ending getTankStandingsHandler()');
 };
@@ -68,8 +81,14 @@ const getTopNTankStandingsHandler = function () {
   const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
 
   if (numTeams) {
-    const getTopNTeams = _getTopNTeams.bind(this);
-    getTopNTeams(numTeams);
+    const getTopNTeams = _getTopNTeams(numTeams);
+    getTopNTeams.then(topTeams => {
+      const speechOutput = messages.getTankStandingsMessage(topTeams);
+      this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
+    }).catch(error => {
+      winston.error(error.message);
+      this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
+    });
   } else {
     this.emit(':ask', messages.NUMBER_NOT_HEARD, messages.NUMBER_NOT_HEARD);
   }
@@ -100,9 +119,7 @@ const getTeamStandingsHandler = function () {
       } else {
         this.emit(':ask', messages.getTeamNotFoundError(teamName), messages.getTeamNotFoundError(teamName));
       }
-    });
-
-    standingsRequest.catch(error => {
+    }).catch(error => {
       winston.error(error.message);
       this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
