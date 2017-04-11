@@ -27,6 +27,7 @@
     "lambda-local": "^1.4.2",
     "mocha": "^3.2.0",
     "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
+    "rewire": "^2.5.2",
     "semistandard": "^10.0.0",
     "sinon": "^2.1.0"
   },
