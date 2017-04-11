@@ -164,6 +164,25 @@ describe('LotteryOdds', function () {
         lotteryOdds.selectWinnerForPick(1).should.equal(13);
       });
     });
+
+    describe('with pickNum === 2 and alreadySelected === 0', function () {
+      let random;
+
+      beforeEach(function () {
+        random = sinon.stub(_, 'random');
+      });
+
+      afterEach(function () {
+        _.random.restore();
+      });
+
+      it('should not return 0', function () {
+        random.onCall(0).returns(5);
+        random.onCall(1).returns(200);
+        random.onCall(2).returns(225);
+        lotteryOdds.selectWinnerForPick(2, 0).should.equal(1);
+      });
+    });
   });
 });
 chai.should();

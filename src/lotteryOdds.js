@@ -6,15 +6,19 @@ const _lotteryOdds = {
   3: [178, 171, 156, 133, 107, 81, 58, 39, 24, 16, 12, 10, 9, 7]
 };
 
-const selectWinnerForPick = (pickNum) => {
+const selectWinnerForPick = (pickNum, alreadySelected) => {
   const weightedArray = _lotteryOdds[pickNum];
   const total = weightedArray.reduce((acc, num) => acc + num, 0);
-  const randomNum = _.random(1, total);
-  let sum = 0;
-  return _.findIndex(weightedArray, (val) => {
-    sum += val;
-    return randomNum <= sum;
-  });
+  let index = null;
+  while (index === null || index === alreadySelected) {
+    const randomNum = _.random(1, total);
+    let sum = 0;
+    index = _.findIndex(weightedArray, (val) => {
+      sum += val;
+      return randomNum <= sum;
+    });
+  }
+  return index;
 };
 
 module.exports = {
