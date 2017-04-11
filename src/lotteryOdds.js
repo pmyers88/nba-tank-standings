@@ -9,15 +9,15 @@ const _lotteryOdds = {
 const selectWinnerForPick = (pickNum, alreadySelected) => {
   const weightedArray = _lotteryOdds[pickNum];
   const total = weightedArray.reduce((acc, num) => acc + num, 0);
-  let index = null;
-  while (index === null || index === alreadySelected) {
+  let index;
+  do {
     const randomNum = _.random(1, total);
     let sum = 0;
     index = _.findIndex(weightedArray, (val) => {
       sum += val;
       return randomNum <= sum;
     });
-  }
+  } while (_.findIndex(alreadySelected, num => index === num) !== -1);
   return index;
 };
 

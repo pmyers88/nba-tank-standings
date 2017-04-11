@@ -5,6 +5,8 @@ const _ = require('lodash');
 
 const lotteryOdds = rewire('../../src/lotteryOdds');
 
+chai.should();
+
 describe('LotteryOdds', function () {
   describe('#_lotteryOdds', function () {
     const _lotteryOdds = lotteryOdds.__get__('_lotteryOdds');
@@ -165,7 +167,7 @@ describe('LotteryOdds', function () {
       });
     });
 
-    describe('with pickNum === 2 and alreadySelected === 0', function () {
+    describe('with pickNum === 2', function () {
       let random;
 
       beforeEach(function () {
@@ -176,13 +178,29 @@ describe('LotteryOdds', function () {
         _.random.restore();
       });
 
-      it('should not return 0', function () {
+      it('should not return 0 when alreadySelected === [0]', function () {
+        random.onCall(0).returns(5);
+        random.onCall(1).returns(200);
+        random.onCall(2).returns(251);
+        lotteryOdds.selectWinnerForPick(2, [0]).should.equal(1);
+      });
+
+      it('should not return 0 or 1 when alreadySelected === [0, 1]', function () {
         random.onCall(0).returns(5);
         random.onCall(1).returns(200);
         random.onCall(2).returns(225);
-        lotteryOdds.selectWinnerForPick(2, 0).should.equal(1);
+        random.onCall(3).returns(404);
+        lotteryOdds.selectWinnerForPick(2, [0, 1]).should.equal(2);
+      });
+
+      it('should not return 0 or 13 when alreadySelected === [0, 13]', function () {
+        random.onCall(0).returns(5);
+        random.onCall(1).returns(200);
+        random.onCall(2).returns(998);
+        random.onCall(3).returns(999);
+        random.onCall(3).returns(410);
+        lotteryOdds.selectWinnerForPick(2, [0, 13]).should.equal(2);
       });
     });
   });
 });
-chai.should();
