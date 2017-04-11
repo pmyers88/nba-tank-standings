@@ -24,8 +24,8 @@ describe('handlers', function () {
     handlers.should.have.any.keys(_.values(events));
   });
 
-  describe('#_getTopNTeams', function () {
-    const _getTopNTeams = handlers.__get__('_getTopNTeams');
+  describe('#_resolveTrades', function () {
+    const _resolveTrades = handlers.__get__('_resolveTrades');
     let handleRequest;
 
     beforeEach(function () {
@@ -36,42 +36,19 @@ describe('handlers', function () {
       NBAClient._handleRequest.restore();
     });
 
-    it('should return the top n teams', function () {
-      const expected = {statusCode: 200, json: standings};
-      handleRequest.callsArgWith(1, expected);
-
-      const getTopNTeams = _getTopNTeams(4);
-
-      return getTopNTeams.then(topTeams => {
-        topTeams.length.should.equal(4);
-        topTeams.should.eql(['the Celtics', 'the Suns', 'the Lakers', 'the Magic']);
-      });
-    });
-
     it('should handle all trades correctly', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
-      const getTopNTeams = _getTopNTeams(30);
-
-      return getTopNTeams.then(topTeams => {
+      const standingsRequest = NBAClient.getStandingsRequest();
+      return standingsRequest.then(topTeams => {
+        topTeams = _resolveTrades(topTeams);
         topTeams.length.should.equal(30);
         topTeams.should.eql(['the Celtics', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers', 'the Knicks',
           'the Timberwolves', 'the Kings', 'the Mavericks', 'the Kings', 'the Hornets', 'the Pistons', 'the Nuggets',
           'the Heat', 'the Bulls', 'the Trail Blazers', 'the Pacers', 'the Bucks', 'the Hawks', 'the Trail Blazers',
           'the Thunder', 'the Nets', 'the Raptors', 'the Jazz', 'the Magic', 'the Trail Blazers', 'the Nets',
           'the Lakers', 'the Spurs', 'the Jazz']);
-      });
-    });
-
-    it('should reject the promise when there is an error', function () {
-      const expected = {statusCode: 400, json: {}};
-      handleRequest.callsArgWith(1, expected);
-
-      const getTopNTeams = _getTopNTeams(4);
-
-      return getTopNTeams.catch(error => {
-        error.message.should.equal(`Received invalid HTTP response code: 400`);
       });
     });
   });

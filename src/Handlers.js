@@ -6,29 +6,27 @@ const teams = require('./teams');
 const messages = require('./messages');
 const intents = require('./intents');
 const events = require('./events');
+const lotteryOdds = require('./lotteryOdds');
 
 const NUM_TEAMS = process.env.NUM_TEAMS;
+const NUM_LOTTERY_TEAMS = 14;
 
-const _getTopNTeams = function (numTeams) {
-  return new Promise((resolve, reject) => {
-    const standingsRequest = NBAClient.getStandingsRequest();
-    standingsRequest.then(standingsResponse => {
-      const topStandings = _.slice(standingsResponse, 0, numTeams);
-      const topTeams = topStandings.map((team, index) => {
-        const teamInfo = teams[team.teamId];
-        let teamName = teamInfo.nickname;
-        _.each(teamInfo.owePicksTo || [], possibleTrade => {
-          const otherTeamIndex = standingsResponse.findIndex(team => {
-            return team.teamId === (possibleTrade.otherTeamId || possibleTrade.recipientId);
-          });
-          if (possibleTrade.condition(index + 1, otherTeamIndex + 1)) {
-            teamName = teams[possibleTrade.recipientId].nickname;
-          }
-        });
-        return 'the ' + teamName;
+const _resolveTrades = function (teamStandings) {
+  return teamStandings.map((team, index) => {
+    const teamInfo = teams[team.teamId];
+    let teamName = teamInfo.nickname;
+
+    _.each(teamInfo.owePicksTo, possibleTrade => {
+      const otherTeamIndex = teamStandings.findIndex(team => {
+        return team.teamId === (possibleTrade.otherTeamId || possibleTrade.recipientId);
       });
-      resolve(topTeams);
-    }).catch(reject);
+
+      if (possibleTrade.condition(index + 1, otherTeamIndex + 1)) {
+        teamName = teams[possibleTrade.recipientId].nickname;
+      }
+    });
+
+    return 'the ' + teamName;
   });
 };
 
@@ -57,9 +55,8 @@ const launchRequestHandler = function () {
 const getTankStandingsHandler = function () {
   winston.info('Starting getTankStandingsHandler()');
 
-  const getTopNTeams = _getTopNTeams(NUM_TEAMS);
-  getTopNTeams.then(topTeams => {
-    const speechOutput = messages.getTankStandingsMessage(topTeams);
+  NBAClient.getStandingsRequest().then(standingsResponse => {
+    const speechOutput = messages.getTankStandingsMessage(_.slice(_resolveTrades(standingsResponse), 0, NUM_TEAMS));
     this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
   }).catch(error => {
     winston.error(error.message);
@@ -71,6 +68,27 @@ const getTankStandingsHandler = function () {
 
 const getLotterySimulationHandler = function () {
   winston.info('Starting getLotterySimulationHandler()');
+
+  NBAClient.getStandingsRequest().then(standingsResponse => {
+    const topThreeTeams = [];
+    const topThreeIndices = [];
+    for (let i = 1; i <= 3; i++) {
+      const winnerIndex = lotteryOdds.selectWinnerForPick(i, topThreeIndices);
+      topThreeTeams.push(standingsResponse[winnerIndex]);
+      topThreeIndices.push(winnerIndex);
+    }
+
+    // this mutates topTeams to remove the top 3 teams
+    _.remove(standingsResponse, (team, i) => topThreeIndices.findIndex(topThreeIndex => i === topThreeIndex) !== -1);
+
+    const newStandings = topThreeTeams.concat(standingsResponse);
+    const newOrder = _.slice(_resolveTrades(newStandings), 0, NUM_LOTTERY_TEAMS);
+    const speechOutput = messages.getLotterySimulationMessage(newOrder);
+    this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, speechOutput);
+  }).catch(error => {
+    winston.error(error.message);
+    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
+  });
   winston.info('Ending getLotterySimulationHandler()');
 };
 
@@ -81,9 +99,8 @@ const getTopNTankStandingsHandler = function () {
   const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
 
   if (numTeams) {
-    const getTopNTeams = _getTopNTeams(numTeams);
-    getTopNTeams.then(topTeams => {
-      const speechOutput = messages.getTankStandingsMessage(topTeams);
+    NBAClient.getStandingsRequest().then(standingsResponse => {
+      const speechOutput = messages.getTankStandingsMessage(_.slice(_resolveTrades(standingsResponse), 0, numTeams));
       this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
     }).catch(error => {
       winston.error(error.message);
@@ -99,19 +116,20 @@ const getTopNTankStandingsHandler = function () {
 const getTeamStandingsHandler = function () {
   winston.info('Starting getTeamStandingsHandler()');
 
-  const standingsRequest = NBAClient.getStandingsRequest();
   const teamSlot = this.event.request.intent.slots.Team;
   const teamName = teamSlot && teamSlot.value ? teamSlot.value : null;
 
   if (teamName) {
-    standingsRequest.then(standingsResponse => {
+    NBAClient.getStandingsRequest().then(standingsResponse => {
       let foundIndex;
       let officialTeamNickname;
+
       const team = standingsResponse.find((team, index) => {
         foundIndex = index;
         officialTeamNickname = teams[team.teamId].nickname;
         return teamName.includes(teams[team.teamId].nickname);
       });
+
       if (team) {
         const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1);
         this.emit(':tellWithCard', teamStandingsText, messages.getTankStandingsCardTitle(officialTeamNickname),

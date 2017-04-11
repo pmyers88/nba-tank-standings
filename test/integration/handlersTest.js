@@ -8,6 +8,7 @@ const lambdaLocal = require('lambda-local');
 const winston = require('winston');
 const chai = require('chai');
 const sinon = require('sinon');
+const _ = require('lodash');
 
 const index = require('../../index');
 const shared = require('./sharedBehavior');
@@ -112,7 +113,63 @@ describe('Handlers', function () {
   });
 
   describe('#GetLotterySimulation', function () {
+    describe('should behave like tell with card when there are no errors', function () {
+      let random;
 
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetLotterySimulation',
+          'slots': {}
+        });
+
+        random = sinon.stub(_, 'random');
+        random.onCall(0).returns(725);
+        random.onCall(1).returns(2);
+        random.onCall(2).returns(200);
+
+        const callLambdaLottoSimFn = callLambdaFn.bind(this);
+        callLambdaLottoSimFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+        _.random.restore();
+      });
+
+      const text = 'After simulating the lottery, the new draft order is the 76ers, the Celtics, the Suns, the 76ers, ' +
+          'the Magic, the Knicks, the Timberwolves, the Kings, the Mavericks, the Kings, the Hornets, the Pistons, ' +
+          'the Nuggets, and the Heat.';
+      const cardTitle = 'Lottery Simulation Standings';
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
+    });
+
+    describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
+      let handleRequest;
+
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetLotterySimulation',
+          'slots': {}
+        });
+
+        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const expected = {statusCode: 400, json: {}};
+        handleRequest.callsArgWith(1, expected);
+
+        const callLambdaLottoErrorFn = callLambdaFn.bind(this);
+        callLambdaLottoErrorFn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+        NBAClient._handleRequest.restore();
+      });
+
+      const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
+      shared.shouldBehaveLikeTell(message);
+    });
   });
 
   describe('#GetTopNTankStandings', function () {
