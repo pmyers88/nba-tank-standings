@@ -7,6 +7,7 @@ const helpMessage = 'Try asking, what are the tank standings, tell me the top 5 
 
 const messages = {
   HELP_MESSAGE: helpMessage,
+  LOTTERY_SIMULATION_CARD_TITLE: 'Lottery Simulation Standings',
   NUMBER_NOT_HEARD: 'I couldn\'t hear the number of teams you asked for. Please repeat your request.',
   STANDINGS_REQUEST_ERROR: 'There was an error trying to fetch the latest NBA standings. Please try again later.',
   STOP_MESSAGE: 'Ok, goodbye!',
@@ -16,6 +17,9 @@ const messages = {
   WELCOME_MESSAGE: 'Welcome to NBA Tank Standings, the app for finding out the latest info about the NBA draft lottery. ' +
       helpMessage,
   WELCOME_REPROMPT: 'For instructions on what you can say, please say help me.',
+  getLotterySimulationMessage: (draftOrder) => {
+    return `After simulating the lottery, the new draft order is ${compoundSubject(draftOrder).delimitAll().make()}.`;
+  },
   getTankStandingsMessage: (teams) => {
     return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
         `standings ${inflect('is', teams.length, 'is', 'are')} ${compoundSubject(teams).delimitAll().make()}.`;

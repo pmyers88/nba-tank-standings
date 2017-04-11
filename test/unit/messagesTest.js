@@ -8,6 +8,7 @@ chai.should();
 describe('Messages', function () {
   it('should contain message keys', function () {
     messages.should.contain.keys('HELP_MESSAGE',
+      'LOTTERY_SIMULATION_CARD_TITLE',
       'NUMBER_NOT_HEARD',
       'STANDINGS_REQUEST_ERROR',
       'STOP_MESSAGE',
@@ -19,8 +20,16 @@ describe('Messages', function () {
     );
   });
 
-  it('should have 13 keys', function () {
-    _size(messages).should.equal(13);
+  it('should have 15 keys', function () {
+    _size(messages).should.equal(15);
+  });
+
+  describe('#getLotterySimulationMessage', function () {
+    it('should return the correct message', function () {
+      const expected = 'After simulating the lottery, the new draft order is the 76ers, the Nets, the Suns, and ' +
+          'the 76ers.';
+      messages.getLotterySimulationMessage(['the 76ers', 'the Nets', 'the Suns', 'the 76ers']).should.equal(expected);
+    });
   });
 
   describe('#getTankStandingsMessage', function () {
