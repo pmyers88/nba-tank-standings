@@ -1,4 +1,5 @@
 const http = require('http');
+const winston = require('winston');
 const _ = require('lodash');
 
 const endpoint = 'data.nba.net';
@@ -37,13 +38,13 @@ class NBAClient {
             json: JSON.parse(rawData)
           };
         } catch (e) {
-          console.error('NBAClient JSON error: ' + e.message);
+          winston.error('NBAClient JSON error: ' + e.message);
         }
 
         resolve(responseJSON);
       });
     }).on('error', e => {
-      console.error('NBA Client error: ' + e);
+      winston.error('NBA Client error: ' + e);
       reject(e);
     });
   }

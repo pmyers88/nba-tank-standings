@@ -5,6 +5,7 @@ require('dotenv').config();
 process.env.APP_ID = 'amzn1.ask.skill.UUID';
 
 const lambdaLocal = require('lambda-local');
+const winston = require('winston');
 const chai = require('chai');
 const sinon = require('sinon');
 
@@ -17,6 +18,9 @@ chai.should();
 
 const handler = 'handler';
 const timeout = 3000;
+winston.add(winston.transports.File, { filename: 'tests.log' })
+       .remove(winston.transports.Console);
+lambdaLocal.setLogger(winston);
 
 const callLambdaFn = function (mochaDone, event) {
   lambdaLocal.execute({
@@ -29,7 +33,7 @@ const callLambdaFn = function (mochaDone, event) {
     callback: (_err, _done) => {
       this.done = _done;
       this.err = _err;
-      console.log(this.err);
+      winston.log(this.err);
       mochaDone();
     }
   });

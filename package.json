@@ -19,7 +19,8 @@
     "compound-subject": "^0.0.2",
     "dotenv": "^4.0.0",
     "inflection": "^1.12.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

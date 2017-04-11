@@ -1,3 +1,5 @@
+const winston = require('winston');
+
 const NBAClient = require('./NBAClient');
 const teams = require('./teams');
 const messages = require('./messages');
@@ -18,13 +20,13 @@ const _getTopNTeams = function (numTeams) {
   });
 
   standingsRequest.catch(error => {
-    console.error(error.message);
+    winston.error(error.message);
     this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
   });
 };
 
 const newSessionRequestHandler = function () {
-  console.info('Starting newSessionRequestHandler()');
+  winston.info('Starting newSessionRequestHandler()');
 
   if (this.event.request.type === events.LAUNCH_REQUEST) {
     this.emit(events.LAUNCH_REQUEST);
@@ -34,33 +36,33 @@ const newSessionRequestHandler = function () {
     this.emit(this.event.request.intent.name);
   }
 
-  console.info('Ending newSessionRequestHandler()');
+  winston.info('Ending newSessionRequestHandler()');
 };
 
 const launchRequestHandler = function () {
-  console.info('Starting launchRequestHandler()');
+  winston.info('Starting launchRequestHandler()');
 
   this.emit(':ask', messages.WELCOME_MESSAGE, messages.WELCOME_REPROMPT);
 
-  console.info('Ending launchRequestHandler()');
+  winston.info('Ending launchRequestHandler()');
 };
 
 const getTankStandingsHandler = function () {
-  console.info('Starting getTankStandingsHandler()');
+  winston.info('Starting getTankStandingsHandler()');
 
   const getTopNTeams = _getTopNTeams.bind(this);
   getTopNTeams(NUM_TEAMS);
 
-  console.info('Ending getTankStandingsHandler()');
+  winston.info('Ending getTankStandingsHandler()');
 };
 
 const getLotterySimulationHandler = function () {
-  console.info('Starting getLotterySimulationHandler()');
-  console.info('Ending getLotterySimulationHandler()');
+  winston.info('Starting getLotterySimulationHandler()');
+  winston.info('Ending getLotterySimulationHandler()');
 };
 
 const getTopNTankStandingsHandler = function () {
-  console.info('Starting getTopNTankStandingsHandler()');
+  winston.info('Starting getTopNTankStandingsHandler()');
 
   const numTeamsSlot = this.event.request.intent.slots.NumTeams;
   const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
@@ -72,11 +74,11 @@ const getTopNTankStandingsHandler = function () {
     this.emit(':ask', messages.NUMBER_NOT_HEARD, messages.NUMBER_NOT_HEARD);
   }
 
-  console.info('Ending getTopNTankStandingsHandler()');
+  winston.info('Ending getTopNTankStandingsHandler()');
 };
 
 const getTeamStandingsHandler = function () {
-  console.info('Starting getTeamStandingsHandler()');
+  winston.info('Starting getTeamStandingsHandler()');
 
   const standingsRequest = NBAClient.getStandingsRequest();
   const teamSlot = this.event.request.intent.slots.Team;
@@ -101,54 +103,54 @@ const getTeamStandingsHandler = function () {
     });
 
     standingsRequest.catch(error => {
-      console.error(error.message);
+      winston.error(error.message);
       this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   } else {
     this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);
   }
 
-  console.info('Ending getTeamStandingsHandler()');
+  winston.info('Ending getTeamStandingsHandler()');
 };
 
 const amazonHelpHandler = function () {
-  console.info('Starting amazonHelpHandler()');
+  winston.info('Starting amazonHelpHandler()');
 
   this.emit(':ask', messages.HELP_MESSAGE, messages.HELP_MESSAGE);
 
-  console.info('Ending amazonHelpHandler()');
+  winston.info('Ending amazonHelpHandler()');
 };
 
 const amazonCancelHandler = function () {
-  console.info('Starting amazonCancelHandler()');
+  winston.info('Starting amazonCancelHandler()');
 
   this.emit(events.SESSION_ENDED);
 
-  console.info('Ending amazonCancelHandler()');
+  winston.info('Ending amazonCancelHandler()');
 };
 
 const amazonStopHandler = function () {
-  console.info('Starting amazonStopHandler()');
+  winston.info('Starting amazonStopHandler()');
 
   this.emit(events.SESSION_ENDED);
 
-  console.info('Ending amazonStopHandler()');
+  winston.info('Ending amazonStopHandler()');
 };
 
 const sessionEndedRequestHandler = function () {
-  console.info('Starting newSessionRequestHandler()');
+  winston.info('Starting newSessionRequestHandler()');
 
   this.emit(':tell', messages.STOP_MESSAGE);
 
-  console.info('Ending newSessionRequestHandler()');
+  winston.info('Ending newSessionRequestHandler()');
 };
 
 const unhandledRequestHandler = function () {
-  console.info('Starting unhandledRequestHandler()');
+  winston.info('Starting unhandledRequestHandler()');
 
   this.emit(':ask', messages.UNHANDLED_MESSAGE, messages.HELP_MESSAGE);
 
-  console.info('Ending unhandledRequestHandler()');
+  winston.info('Ending unhandledRequestHandler()');
 };
 
 const handlers = {};
