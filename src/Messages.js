@@ -41,8 +41,14 @@ const messages = {
   getTeamNotFoundError: (team) => {
     return `Sorry, I could not find a team named ${team}. Please ask again.`;
   },
-  getTeamStandingsMessage: (team, ranking) => {
-    return `The ${team} are currently ranked ${ordinalize(ranking.toString())} in the tank standings.`;
+  getTeamStandingsMessage: (team, picks) => {
+    let message = `The ${team} currently don't hold any draft picks in the first round.`;
+    if (picks.length > 0) {
+      message = `The ${team} currently hold the ` + compoundSubject(picks.map(pick => {
+        return ordinalize(pick.toString());
+      })).delimitAll().make() + ` ${inflect('pick', picks.length)} in the NBA draft.`;
+    }
+    return message;
   }
 };
 

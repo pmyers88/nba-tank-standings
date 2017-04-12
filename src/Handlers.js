@@ -14,7 +14,8 @@ const NUM_LOTTERY_TEAMS = 14;
 const _resolveTrades = (teamStandings) => {
   return teamStandings.map((team, index) => {
     const teamInfo = teams[team.teamId];
-    let teamName = teamInfo.nickname;
+    let from = teamInfo.nickname;
+    let owner = from;
 
     _.each(teamInfo.owePicksTo, possibleTrade => {
       const otherTeamIndex = teamStandings.findIndex(team => {
@@ -22,20 +23,20 @@ const _resolveTrades = (teamStandings) => {
       });
 
       if (possibleTrade.condition(index + 1, otherTeamIndex + 1)) {
-        teamName = teams[possibleTrade.recipientId].nickname;
+        owner = teams[possibleTrade.recipientId].nickname;
       }
     });
 
-    return teamName;
+    return {'owner': owner, 'from': from};
   });
 };
 
 const _addThe = (teams) => {
-  return teams.map(team => `the ${team}`);
+  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : ` via the ${team.from}`));
 };
 
 const _numericalOutput = (teams) => {
-  return teams.map((team, index) => `${index + 1}. ${team}`);
+  return teams.map((team, index) => `${index + 1}. ${team.owner}` + (team.owner === team.from ? '' : ` (via the ${team.from})`));
 };
 
 const newSessionRequestHandler = function () {
@@ -135,17 +136,18 @@ const getTeamStandingsHandler = function () {
 
   if (teamName) {
     NBAClient.getStandingsRequest().then(standingsResponse => {
-      let foundIndex;
+      let foundIndices = [];
       let officialTeamNickname;
 
-      const team = standingsResponse.find((team, index) => {
-        foundIndex = index;
-        officialTeamNickname = teams[team.teamId].nickname;
-        return teamName.toLowerCase().includes(teams[team.teamId].nickname.toLowerCase());
+      _resolveTrades(standingsResponse).forEach((team, index) => {
+        if (teamName.toLowerCase().includes(team.owner.toLowerCase())) {
+          officialTeamNickname = team.owner;
+          foundIndices.push(index + 1);
+        }
       });
 
-      if (team) {
-        const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1);
+      if (foundIndices.length) {
+        const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndices);
         this.emit(':tellWithCard', teamStandingsText + ' ' + messages.CARD_ADDED,
             messages.getTankStandingsCardTitle(officialTeamNickname), teamStandingsText);
       } else {

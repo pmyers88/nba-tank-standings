@@ -102,9 +102,19 @@ describe('Messages', function () {
   });
 
   describe('#getTeamStandingsMessage', function () {
-    it('should return the correct message', function () {
-      const expected = 'The Nets are currently ranked 1st in the tank standings.';
-      messages.getTeamStandingsMessage('Nets', 1).should.equal(expected);
+    it('should inform the user if the team does not hold a pick', function () {
+      const expected = 'The Warriors currently don\'t hold any draft picks in the first round.';
+      messages.getTeamStandingsMessage('Warriors', []).should.equal(expected);
+    });
+
+    it('should return the correct message when the team holds one pick', function () {
+      const expected = 'The Celtics currently hold the 1st pick in the NBA draft.';
+      messages.getTeamStandingsMessage('Celtics', [1]).should.equal(expected);
+    });
+
+    it('should return the correct message when the team holds multiple pick', function () {
+      const expected = 'The Trail Blazers currently hold the 16th, 19th, and 26th picks in the NBA draft.';
+      messages.getTeamStandingsMessage('Trail Blazers', [16, 19, 26]).should.equal(expected);
     });
   });
 });
