@@ -138,12 +138,12 @@ describe('Handlers', function () {
         _.random.restore();
       });
 
-      const text = 'After simulating the lottery, the new draft order is the 76ers, the Celtics via the Nets, the Suns, the 76ers via the Lakers, ' +
-          'the Magic, the Knicks, the Timberwolves, the Mavericks, the Kings, the Kings via the Pelicans, the Hornets, the Pistons, ' +
+      const text = 'After simulating the lottery, the new draft order is the 76ers, the Celtics from the Nets, the Suns, the 76ers from the Lakers, ' +
+          'the Magic, the Knicks, the Timberwolves, the Mavericks, the Kings, the Kings from the Pelicans, the Hornets, the Pistons, ' +
           'the Nuggets, and the Heat. A card with this information has been added to your Alexa app.';
       const cardTitle = 'Lottery Simulation Standings';
-      const cardText = 'After simulating the lottery, the new draft order is:\n1. 76ers\n2. Celtics (via the Nets)\n3. Suns\n' +
-          '4. 76ers (via the Lakers)\n5. Magic\n6. Knicks\n7. Timberwolves\n8. Mavericks\n9. Kings\n10. Kings (via the Pelicans)\n11. Hornets\n' +
+      const cardText = 'After simulating the lottery, the new draft order is:\n1. 76ers\n2. Celtics (from the Nets)\n3. Suns\n' +
+          '4. 76ers (from the Lakers)\n5. Magic\n6. Knicks\n7. Timberwolves\n8. Mavericks\n9. Kings\n10. Kings (from the Pelicans)\n11. Hornets\n' +
           '12. Pistons\n13. Nuggets\n14. Heat';
       shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });

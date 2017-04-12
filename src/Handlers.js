@@ -1,3 +1,5 @@
+'use strict';
+
 const winston = require('winston');
 const _ = require('lodash');
 
@@ -32,11 +34,11 @@ const _resolveTrades = (teamStandings) => {
 };
 
 const _addThe = (teams) => {
-  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : ` via the ${team.from}`));
+  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : ` from the ${team.from}`));
 };
 
 const _numericalOutput = (teams) => {
-  return teams.map((team, index) => `${index + 1}. ${team.owner}` + (team.owner === team.from ? '' : ` (via the ${team.from})`));
+  return teams.map((team, index) => `${index + 1}. ${team.owner}` + (team.owner === team.from ? '' : ` (from the ${team.from})`));
 };
 
 const newSessionRequestHandler = function () {
