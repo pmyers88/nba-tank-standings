@@ -74,6 +74,10 @@ GetTeamStandings information about the {Team}
 GetTeamStandings standings for the {Team}
 
 GetLotterySimulation simulate the lottery
+GetLotterySimulation simulate the draft lottery
 GetLotterySimulation to simulate the lottery
+GetLotterySimulation to simulate the draft lottery
 GetLotterySimulation lottery simulation
+GetLotterySimulation draft lottery simulation
 GetLotterySimulation for a lottery simulation
+GetLotterySimulation for a draft lottery simulation
