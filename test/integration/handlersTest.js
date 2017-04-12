@@ -140,7 +140,7 @@ describe('Handlers', function () {
 
       const text = 'After simulating the lottery, the new draft order is the 76ers, the Celtics, the Suns, the 76ers, ' +
           'the Magic, the Knicks, the Timberwolves, the Kings, the Mavericks, the Kings, the Hornets, the Pistons, ' +
-          'the Nuggets, and the Heat.';
+          'the Nuggets, and the Heat. A card with this information has been added to your Alexa app.';
       const cardTitle = 'Lottery Simulation Standings';
       const cardText = 'After simulating the lottery, the new draft order is:\n1. 76ers\n2. Celtics\n3. Suns\n' +
           '4. 76ers\n5. Magic\n6. Knicks\n7. Timberwolves\n8. Kings\n9. Mavericks\n10. Kings\n11. Hornets\n' +

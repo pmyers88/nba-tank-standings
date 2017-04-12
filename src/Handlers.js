@@ -146,8 +146,8 @@ const getTeamStandingsHandler = function () {
 
       if (team) {
         const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndex + 1);
-        this.emit(':tellWithCard', teamStandingsText, messages.getTankStandingsCardTitle(officialTeamNickname),
-            teamStandingsText);
+        this.emit(':tellWithCard', teamStandingsText + ' ' + messages.CARD_ADDED,
+            messages.getTankStandingsCardTitle(officialTeamNickname), teamStandingsText);
       } else {
         this.emit(':ask', messages.getTeamNotFoundError(teamName), messages.getTeamNotFoundError(teamName));
       }

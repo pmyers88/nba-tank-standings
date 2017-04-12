@@ -7,7 +7,8 @@ chai.should();
 
 describe('Messages', function () {
   it('should contain message keys', function () {
-    messages.should.contain.keys('HELP_MESSAGE',
+    messages.should.contain.keys('CARD_ADDED',
+      'HELP_MESSAGE',
       'LOTTERY_SIMULATION_CARD_TITLE',
       'NUMBER_NOT_HEARD',
       'STANDINGS_REQUEST_ERROR',
@@ -20,14 +21,14 @@ describe('Messages', function () {
     );
   });
 
-  it('should have 17 keys', function () {
-    _size(messages).should.equal(17);
+  it('should have 18 keys', function () {
+    _size(messages).should.equal(18);
   });
 
   describe('#getLotterySimulationMessage', function () {
     it('should return the correct message', function () {
       const expected = 'After simulating the lottery, the new draft order is the 76ers, the Nets, the Suns, and ' +
-          'the 76ers.';
+          'the 76ers. A card with this information has been added to your Alexa app.';
       messages.getLotterySimulationMessage(['the 76ers', 'the Nets', 'the Suns', 'the 76ers']).should.equal(expected);
     });
   });
@@ -42,20 +43,24 @@ describe('Messages', function () {
 
   describe('#getTankStandingsMessage', function () {
     it('should return the correct message for 1 team', function () {
-      const expected = 'The top team in the tank standings is the Nets.';
+      const expected = 'The top team in the tank standings is the Nets. A card with this information has been added ' +
+          'to your Alexa app.';
       messages.getTankStandingsMessage(['the Nets']).should.equal(expected);
     });
 
     it('should return the correct message for 2 teams', function () {
-      const expected = 'The top 2 teams in the tank standings are the Nets and the Suns.';
+      const expected = 'The top 2 teams in the tank standings are the Nets and the Suns. A card with this information ' +
+          'has been added to your Alexa app.';
       messages.getTankStandingsMessage(['the Nets', 'the Suns']).should.equal(expected);
     });
 
     it('should return the correct message for > 2 teams', function () {
-      let expected = 'The top 3 teams in the tank standings are the Nets, the Suns, and the Lakers.';
+      let expected = 'The top 3 teams in the tank standings are the Nets, the Suns, and the Lakers. A card with this ' +
+          'information has been added to your Alexa app.';
       messages.getTankStandingsMessage(['the Nets', 'the Suns', 'the Lakers']).should.equal(expected);
 
-      expected = 'The top 5 teams in the tank standings are the Nets, the Suns, the Lakers, the Magic, and the 76ers.';
+      expected = 'The top 5 teams in the tank standings are the Nets, the Suns, the Lakers, the Magic, and the 76ers. ' +
+          'A card with this information has been added to your Alexa app.';
       messages.getTankStandingsMessage(['the Nets', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers']).should.equal(
           expected);
     });
