@@ -1,12 +1,52 @@
+GetTankStandings the standings
 GetTankStandings the tank standings
+GetTankStandings the latest standings
+GetTankStandings the latest tank standings
+
+GetTankStandings for the standings
+GetTankStandings for the tank standings
+GetTankStandings for the latest standings
+GetTankStandings for the latest tank standings
+
+GetTankStandings what are the standings
 GetTankStandings what are the tank standings
+GetTankStandings what are the latest standings
+GetTankStandings what are the latest tank standings
+
+GetTankStandings what're the standings
 GetTankStandings what're the tank standings
+GetTankStandings what're the latest standings
+GetTankStandings what're the latest tank standings
+
+GetTankStandings give me the standings
 GetTankStandings give me the tank standings
+GetTankStandings give me the latest standings
+GetTankStandings give me the latest tank standings
+
+GetTankStandings tell me the standings
 GetTankStandings tell me the tank standings
+GetTankStandings tell me the latest standings
+GetTankStandings tell me the latest tank standings
+
+GetTankStandings get me the standings
 GetTankStandings get me the tank standings
+GetTankStandings get me the latest standings
+GetTankStandings get me the latest tank standings
+
+GetTankStandings get the standings
 GetTankStandings get the tank standings
+GetTankStandings get the latest standings
+GetTankStandings get the latest tank standings
+
+GetTankStandings find the standings
 GetTankStandings find the tank standings
+GetTankStandings find the latest standings
+GetTankStandings find the latest tank standings
+
+GetTankStandings find me the standings
 GetTankStandings find me the tank standings
+GetTankStandings find me the latest standings
+GetTankStandings find me the latest tank standings
 
 GetTopNTankStandings the top {NumTeams} teams
 GetTopNTankStandings what are the top {NumTeams} teams
@@ -18,11 +58,17 @@ GetTopNTankStandings get the top {NumTeams} teams
 GetTopNTankStandings find the top {NumTeams} teams
 GetTopNTankStandings find me the top {NumTeams} teams
 
+GetTeamStandings about the {Team}
+GetTeamStandings for the {Team}
+GetTeamStandings the {Team}
 GetTeamStandings the {Team} standings
-GetTeamStandings the {Team} rankings
-GetTeamStandings where the {Team} stands
-GetTeamStandings where the {Team} ranks
+GetTeamStandings where the {Team} stand
 GetTeamStandings the lottery odds for the {Team}
 GetTeamStandings info for the {Team}
+GetTeamStandings for the {Team} standings
+GetTeamStandings standings for the {Team}
 
 GetLotterySimulation simulate the lottery
+GetLotterySimulation to simulate the lottery
+GetLotterySimulation lottery simulation
+GetLotterySimulation for a lottery simulation

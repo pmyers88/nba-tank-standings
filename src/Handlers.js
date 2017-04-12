@@ -107,6 +107,7 @@ const getTopNTankStandingsHandler = function () {
       this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   } else {
+    winston.log(`Number not heard; Intent: ${JSON.stringify(this.event.request.intent)}`);
     this.emit(':ask', messages.NUMBER_NOT_HEARD, messages.NUMBER_NOT_HEARD);
   }
 
@@ -142,6 +143,7 @@ const getTeamStandingsHandler = function () {
       this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   } else {
+    winston.log(`Team not heard error; Intent: ${JSON.stringify(this.event.request.intent)}`);
     this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);
   }
 
