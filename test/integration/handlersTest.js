@@ -286,6 +286,81 @@ describe('Handlers', function () {
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
 
+    describe('should handle the string sixers', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'sixers'
+            }
+          }
+        });
+        const callLambdaTeamRank1Fn = callLambdaFn.bind(this);
+        callLambdaTeamRank1Fn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The 76ers currently hold the';
+      const title = '76ers Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
+    });
+
+    describe('should handle the string seventy-sixers', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'seventy-sixers'
+            }
+          }
+        });
+        const callLambdaTeamRank2Fn = callLambdaFn.bind(this);
+        callLambdaTeamRank2Fn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The 76ers currently hold the';
+      const title = '76ers Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
+    });
+
+    describe('should say that the warriors don\'t have any picks', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'warriors'
+            }
+          }
+        });
+        const callLambdaTeamRank3Fn = callLambdaFn.bind(this);
+        callLambdaTeamRank3Fn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The Warriors currently don\'t hold any draft picks in the first round.';
+      const title = 'Warriors Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
+    });
+
     describe('should emit ask the user to repeat themselves when the Team slot is null', function () {
       before(function (done) {
         const event = intentRequest.getRequest({

@@ -132,23 +132,30 @@ const getTeamStandingsHandler = function () {
   winston.info('Starting getTeamStandingsHandler()');
 
   const teamSlot = this.event.request.intent.slots.Team;
-  const teamName = teamSlot && teamSlot.value ? teamSlot.value : null;
+  let teamName = teamSlot && teamSlot.value ? teamSlot.value : null;
 
   if (teamName) {
     NBAClient.getStandingsRequest().then(standingsResponse => {
       let foundIndices = [];
       let officialTeamNickname;
 
+      // handle other sixers nicknames
+      if (teamName.toLowerCase().includes('sixers') || teamName.toLowerCase().includes('seventy-sixers')) {
+        teamName = '76ers';
+      }
+
       _resolveTrades(standingsResponse).forEach((team, index) => {
-        if (teamName.toLowerCase().includes(team.owner.toLowerCase()) ||
-            team.owner.toLowerCase().includes(teamName.toLowerCase()) ||
-            teamName.toLowerCase().includes('sixers') || teamName.toLowerCase().includes('seventy-sixers')) {
+        if (teamName.toLowerCase().startsWith(team.owner.toLowerCase()) ||
+            team.owner.toLowerCase().startsWith(teamName.toLowerCase())) {
           officialTeamNickname = team.owner;
           foundIndices.push(index + 1);
+        } else if (teamName.toLowerCase().startsWith(team.from.toLowerCase()) ||
+            team.from.toLowerCase().startsWith(teamName.toLowerCase())) {
+          officialTeamNickname = team.from;
         }
       });
 
-      if (foundIndices.length) {
+      if (officialTeamNickname) {
         const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndices);
         this.emit(':tellWithCard', teamStandingsText + ' ' + messages.CARD_ADDED,
             messages.getTankStandingsCardTitle(officialTeamNickname), teamStandingsText);
