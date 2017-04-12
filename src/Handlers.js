@@ -141,7 +141,7 @@ const getTeamStandingsHandler = function () {
       const team = standingsResponse.find((team, index) => {
         foundIndex = index;
         officialTeamNickname = teams[team.teamId].nickname;
-        return teamName.includes(teams[team.teamId].nickname);
+        return teamName.toLowerCase().includes(teams[team.teamId].nickname.toLowerCase());
       });
 
       if (team) {
