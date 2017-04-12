@@ -7,7 +7,7 @@
     "setup-lambda": "node-lambda setup",
     "build": "node-lambda package",
     "clean": "rm -rf build",
-    "deploy": "yarn run lint && node-lambda deploy",
+    "deploy": "yarn run test && node-lambda deploy",
     "lint": "semistandard",
     "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan",
     "coverage": "istanbul cover _mocha -- ./test/**/*.js --reporter nyan"
