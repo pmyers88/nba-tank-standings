@@ -60,12 +60,17 @@ GetTopNTankStandings find me the top {NumTeams} teams
 
 GetTeamStandings about the {Team}
 GetTeamStandings for the {Team}
+GetTeamStandings for the {Team} standings
+GetTeamStandings for the {Team} record
 GetTeamStandings the {Team}
 GetTeamStandings the {Team} standings
+GetTeamStandings the {Team} record
 GetTeamStandings where the {Team} stand
 GetTeamStandings the lottery odds for the {Team}
 GetTeamStandings info for the {Team}
-GetTeamStandings for the {Team} standings
+GetTeamStandings info about the {Team}
+GetTeamStandings information for the {Team}
+GetTeamStandings information about the {Team}
 GetTeamStandings standings for the {Team}
 
 GetLotterySimulation simulate the lottery
