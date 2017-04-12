@@ -11,7 +11,7 @@ const lotteryOdds = require('./lotteryOdds');
 const NUM_TEAMS = process.env.NUM_TEAMS;
 const NUM_LOTTERY_TEAMS = 14;
 
-const _resolveTrades = function (teamStandings) {
+const _resolveTrades = (teamStandings) => {
   return teamStandings.map((team, index) => {
     const teamInfo = teams[team.teamId];
     let teamName = teamInfo.nickname;
@@ -26,8 +26,16 @@ const _resolveTrades = function (teamStandings) {
       }
     });
 
-    return 'the ' + teamName;
+    return teamName;
   });
+};
+
+const _addThe = (teams) => {
+  return teams.map(team => `the ${team}`);
+};
+
+const _numericalOutput = (teams) => {
+  return teams.map((team, index) => `${index + 1}. ${team}`);
 };
 
 const newSessionRequestHandler = function () {
@@ -56,8 +64,10 @@ const getTankStandingsHandler = function () {
   winston.info('Starting getTankStandingsHandler()');
 
   NBAClient.getStandingsRequest().then(standingsResponse => {
-    const speechOutput = messages.getTankStandingsMessage(_.slice(_resolveTrades(standingsResponse), 0, NUM_TEAMS));
-    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
+    const teams = _.slice(_resolveTrades(standingsResponse), 0, NUM_TEAMS);
+    const speechOutput = messages.getTankStandingsMessage(_addThe(teams));
+    const cardOutput = messages.getTankStandingsText(_numericalOutput(teams));
+    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
   }).catch(error => {
     winston.error(error.message);
     this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
@@ -81,14 +91,15 @@ const getLotterySimulationHandler = function () {
     // this mutates topTeams to remove the top 3 teams
     _.remove(standingsResponse, (team, i) => topThreeIndices.findIndex(topThreeIndex => i === topThreeIndex) !== -1);
 
-    const newStandings = topThreeTeams.concat(standingsResponse);
-    const newOrder = _.slice(_resolveTrades(newStandings), 0, NUM_LOTTERY_TEAMS);
-    const speechOutput = messages.getLotterySimulationMessage(newOrder);
-    this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, speechOutput);
+    const newStandings = _.slice(_resolveTrades(topThreeTeams.concat(standingsResponse)), 0, NUM_LOTTERY_TEAMS);
+    const speechOutput = messages.getLotterySimulationMessage(_addThe(newStandings));
+    const cardOutput = messages.getLotterySimulationText(_numericalOutput(newStandings));
+    this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, cardOutput);
   }).catch(error => {
     winston.error(error.message);
     this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
   });
+
   winston.info('Ending getLotterySimulationHandler()');
 };
 
@@ -100,8 +111,10 @@ const getTopNTankStandingsHandler = function () {
 
   if (numTeams) {
     NBAClient.getStandingsRequest().then(standingsResponse => {
-      const speechOutput = messages.getTankStandingsMessage(_.slice(_resolveTrades(standingsResponse), 0, numTeams));
-      this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, speechOutput);
+      const teams = _.slice(_resolveTrades(standingsResponse), 0, numTeams);
+      const speechOutput = messages.getTankStandingsMessage(_addThe(teams));
+      const cardOutput = messages.getTankStandingsText(_numericalOutput(teams));
+      this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
     }).catch(error => {
       winston.error(error.message);
       this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);

@@ -81,7 +81,8 @@ describe('Handlers', function () {
 
       const text = `The top ${process.env.NUM_TEAMS} teams in the tank standings are the`;
       const cardTitle = 'NBA Tank Standings';
-      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
+      const cardText = `The top ${process.env.NUM_TEAMS} teams in the tank standings are:\n`;
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
@@ -141,7 +142,10 @@ describe('Handlers', function () {
           'the Magic, the Knicks, the Timberwolves, the Kings, the Mavericks, the Kings, the Hornets, the Pistons, ' +
           'the Nuggets, and the Heat.';
       const cardTitle = 'Lottery Simulation Standings';
-      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
+      const cardText = 'After simulating the lottery, the new draft order is:\n1. 76ers\n2. Celtics\n3. Suns\n' +
+          '4. 76ers\n5. Magic\n6. Knicks\n7. Timberwolves\n8. Kings\n9. Mavericks\n10. Kings\n11. Hornets\n' +
+          '12. Pistons\n13. Nuggets\n14. Heat';
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
@@ -193,9 +197,10 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const text = `The top 7 teams in the tank standings are the`;
+      const text = `The top 7 teams in the tank standings are`;
       const cardTitle = 'NBA Tank Standings';
-      shared.shouldBehaveLikeTellWithCard(text, cardTitle, text);
+      const cardText = `The top 7 teams in the tank standings are:\n`;
+      shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
 
     describe('should emit ask the user to repeat themselves when the NumTeams slot is null', function () {

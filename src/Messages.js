@@ -20,9 +20,16 @@ const messages = {
   getLotterySimulationMessage: (draftOrder) => {
     return `After simulating the lottery, the new draft order is ${compoundSubject(draftOrder).delimitAll().make()}.`;
   },
+  getLotterySimulationText: (draftOrder) => {
+    return `After simulating the lottery, the new draft order is:\n${draftOrder.join('\n')}`;
+  },
   getTankStandingsMessage: (teams) => {
     return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
         `standings ${inflect('is', teams.length, 'is', 'are')} ${compoundSubject(teams).delimitAll().make()}.`;
+  },
+  getTankStandingsText: (teams) => {
+    return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
+        `standings ${inflect('is', teams.length, 'is', 'are')}:\n${teams.join('\n')}`;
   },
   getTankStandingsCardTitle: (team) => {
     return `${team} Tank Standings`;

@@ -44,12 +44,32 @@ describe('handlers', function () {
       return standingsRequest.then(topTeams => {
         topTeams = _resolveTrades(topTeams);
         topTeams.length.should.equal(30);
-        topTeams.should.eql(['the Celtics', 'the Suns', 'the Lakers', 'the Magic', 'the 76ers', 'the Knicks',
-          'the Timberwolves', 'the Kings', 'the Mavericks', 'the Kings', 'the Hornets', 'the Pistons', 'the Nuggets',
-          'the Heat', 'the Bulls', 'the Trail Blazers', 'the Pacers', 'the Bucks', 'the Hawks', 'the Trail Blazers',
-          'the Thunder', 'the Nets', 'the Raptors', 'the Jazz', 'the Magic', 'the Trail Blazers', 'the Nets',
-          'the Lakers', 'the Spurs', 'the Jazz']);
+        topTeams.should.eql(['Celtics', 'Suns', 'Lakers', 'Magic', '76ers', 'Knicks',
+          'Timberwolves', 'Kings', 'Mavericks', 'Kings', 'Hornets', 'Pistons', 'Nuggets',
+          'Heat', 'Bulls', 'Trail Blazers', 'Pacers', 'Bucks', 'Hawks', 'Trail Blazers',
+          'Thunder', 'Nets', 'Raptors', 'Jazz', 'Magic', 'Trail Blazers', 'Nets',
+          'Lakers', 'Spurs', 'Jazz']);
       });
+    });
+  });
+
+  describe('#_addThe', function () {
+    const _addThe = handlers.__get__('_addThe');
+
+    it('should add "the" to each string in array', function () {
+      const teams = ['Celtics', 'Suns', 'Lakers', '76ers'];
+      const teamsThe = _addThe(teams);
+      teamsThe.should.eql(['the Celtics', 'the Suns', 'the Lakers', 'the 76ers']);
+    });
+  });
+
+  describe('#_numericalOutput', function () {
+    const _numericalOutput = handlers.__get__('_numericalOutput');
+
+    it('should add newline + index to each string in array', function () {
+      const teams = ['Celtics', 'Suns', 'Lakers', '76ers'];
+      const teamsThe = _numericalOutput(teams);
+      teamsThe.should.eql(['1. Celtics', '2. Suns', '3. Lakers', '4. 76ers']);
     });
   });
 });
