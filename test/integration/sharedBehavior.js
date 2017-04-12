@@ -1,3 +1,5 @@
+'use strict';
+
 const sharedBehavior = {
   shouldBehaveLikeTell: function (ssml) {
     it('should return outputSpeech matching string', function () {

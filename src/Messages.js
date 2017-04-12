@@ -1,3 +1,5 @@
+'use strict';
+
 const compoundSubject = require('compound-subject');
 const inflection = require('inflection');
 const {inflect, ordinalize} = inflection;

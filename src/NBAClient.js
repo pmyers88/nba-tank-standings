@@ -1,3 +1,5 @@
+'use strict';
+
 const http = require('http');
 const winston = require('winston');
 const _ = require('lodash');

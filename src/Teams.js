@@ -1,3 +1,5 @@
+'use strict';
+
 const teams = {
   '1610612737': {
     'isNBAFranchise': true,

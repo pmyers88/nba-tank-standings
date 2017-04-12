@@ -1,3 +1,5 @@
+'use strict';
+
 const events = {
   NEW_SESSION: 'NewSession',
   LAUNCH_REQUEST: 'LaunchRequest',

@@ -1,3 +1,5 @@
+'use strict';
+
 const chai = require('chai');
 
 const events = require('../../src/events');

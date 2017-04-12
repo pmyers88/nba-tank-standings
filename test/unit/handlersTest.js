@@ -1,3 +1,5 @@
+'use strict';
+
 const chai = require('chai');
 const sinon = require('sinon');
 const _ = require('lodash');
@@ -67,7 +69,7 @@ describe('handlers', function () {
       const teams = [{owner: 'Celtics', from: 'Nets'}, {owner: 'Suns', from: 'Suns'}, {owner: 'Lakers', from: 'Lakers'},
           {owner: '76ers', from: '76ers'}];
       const teamsThe = _addThe(teams);
-      teamsThe.should.eql(['the Celtics via the Nets', 'the Suns', 'the Lakers', 'the 76ers']);
+      teamsThe.should.eql(['the Celtics from the Nets', 'the Suns', 'the Lakers', 'the 76ers']);
     });
   });
 
@@ -78,7 +80,7 @@ describe('handlers', function () {
       const teams = [{owner: 'Celtics', from: 'Nets'}, {owner: 'Suns', from: 'Suns'}, {owner: 'Lakers', from: 'Lakers'},
           {owner: '76ers', from: '76ers'}];
       const teamsThe = _numericalOutput(teams);
-      teamsThe.should.eql(['1. Celtics (via the Nets)', '2. Suns', '3. Lakers', '4. 76ers']);
+      teamsThe.should.eql(['1. Celtics (from the Nets)', '2. Suns', '3. Lakers', '4. 76ers']);
     });
   });
 });

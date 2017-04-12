@@ -1,3 +1,5 @@
+'use strict';
+
 const intents = {
   GET_TANK_STANDINGS: 'GetTankStandings',
   GET_LOTTERY_SIMULATION: 'GetLotterySimulation',

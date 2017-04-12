@@ -1,3 +1,5 @@
+'use strict';
+
 const intentRequest = {
   getRequest: function (intent, type) {
     return {
