@@ -140,7 +140,9 @@ const getTeamStandingsHandler = function () {
       let officialTeamNickname;
 
       _resolveTrades(standingsResponse).forEach((team, index) => {
-        if (teamName.toLowerCase().includes(team.owner.toLowerCase())) {
+        if (teamName.toLowerCase().includes(team.owner.toLowerCase()) ||
+            team.owner.toLowerCase().includes(teamName.toLowerCase()) ||
+            teamName.toLowerCase().includes('sixers') || teamName.toLowerCase().includes('seventy-sixers')) {
           officialTeamNickname = team.owner;
           foundIndices.push(index + 1);
         }
