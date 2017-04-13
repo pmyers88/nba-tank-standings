@@ -124,7 +124,7 @@ describe('Handlers', function () {
         });
 
         random = sinon.stub(_, 'random');
-        random.onCall(0).returns(725);
+        random.onCall(0).returns(650);
         random.onCall(1).returns(2);
         random.onCall(2).returns(200);
 
@@ -139,11 +139,11 @@ describe('Handlers', function () {
       });
 
       const text = 'After simulating the lottery, the new draft order is the 76ers, the Celtics from the Nets, the Suns, the 76ers from the Lakers, ' +
-          'the Magic, the Knicks, the Timberwolves, the Mavericks, the Kings, the Kings from the Pelicans, the Hornets, the Pistons, ' +
+          'the Magic, the Timberwolves, the Knicks, the Kings, the Mavericks, the Kings from the Pelicans, the Hornets, the Pistons, ' +
           'the Nuggets, and the Heat. A card with this information has been added to your Alexa app.';
       const cardTitle = 'Lottery Simulation Standings';
       const cardText = 'After simulating the lottery, the new draft order is:\n1. 76ers\n2. Celtics (from the Nets)\n3. Suns\n' +
-          '4. 76ers (from the Lakers)\n5. Magic\n6. Knicks\n7. Timberwolves\n8. Mavericks\n9. Kings\n10. Kings (from the Pelicans)\n11. Hornets\n' +
+          '4. 76ers (from the Lakers)\n5. Magic\n6. Timberwolves\n7. Knicks\n8. Kings\n9. Mavericks\n10. Kings (from the Pelicans)\n11. Hornets\n' +
           '12. Pistons\n13. Nuggets\n14. Heat';
       shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
@@ -281,7 +281,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the';
+      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -306,7 +306,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the';
+      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -331,7 +331,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the';
+      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -358,6 +358,56 @@ describe('Handlers', function () {
 
       const message = 'The Warriors currently don\'t hold any draft picks in the first round.';
       const title = 'Warriors Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
+    });
+
+    describe('should handle the string Chicago Bulls', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'Chicago Bulls'
+            }
+          }
+        });
+        const callLambdaTeamRank4Fn = callLambdaFn.bind(this);
+        callLambdaTeamRank4Fn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The Bulls currently hold the';
+      const title = 'Bulls Tank Standings';
+      shared.shouldBehaveLikeTellWithCard(message, title, message);
+    });
+
+    describe('should handle the string Nets', function () {
+      before(function (done) {
+        const event = intentRequest.getRequest({
+          'name': 'GetTeamStandings',
+          'slots': {
+            'Team': {
+              'name': 'Team',
+              'value': 'Nets'
+            }
+          }
+        });
+        const callLambdaTeamRank5Fn = callLambdaFn.bind(this);
+        callLambdaTeamRank5Fn(done, event);
+      });
+
+      after(function () {
+        this.done = null;
+        this.err = null;
+      });
+
+      const message = 'The Nets currently hold the 22nd and 27th picks in the NBA draft.';
+      const title = 'Nets Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
 

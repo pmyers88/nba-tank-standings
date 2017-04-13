@@ -147,8 +147,7 @@ const getTeamStandingsHandler = function () {
       }
 
       _resolveTrades(standingsResponse).forEach((team, index) => {
-        if (teamName.toLowerCase().startsWith(team.owner.toLowerCase()) ||
-            team.owner.toLowerCase().startsWith(teamName.toLowerCase())) {
+        if (teamName.toLowerCase().split(' ').includes(team.owner.toLowerCase())) {
           officialTeamNickname = team.owner;
           foundIndices.push(index + 1);
         } else if (teamName.toLowerCase().startsWith(team.from.toLowerCase()) ||
