@@ -17,7 +17,7 @@ class NBAClient {
           const eastStandings = _.get(nbaResponse.json, 'league.standard.conference.east', []);
           const westStandings = _.get(nbaResponse.json, 'league.standard.conference.west', []);
           let leagueStandings = eastStandings.concat(westStandings);
-          leagueStandings = _.orderBy(leagueStandings, team => team.sortKey.winPct, ['desc']);
+          leagueStandings = _.orderBy(leagueStandings, ['winPct', 'confRank'], ['asc', 'desc']);
           resolve(leagueStandings);
         } else {
           reject(new Error(`Received invalid HTTP response code: ${nbaResponse.statusCode}`));
