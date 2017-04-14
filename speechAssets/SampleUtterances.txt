@@ -58,13 +58,6 @@ GetTopNTankStandings get the top {NumTeams} teams
 GetTopNTankStandings find the top {NumTeams} teams
 GetTopNTankStandings find me the top {NumTeams} teams
 
-GetTeamStandings for the {Team} standings
-GetTeamStandings for the {Team} record
-GetTeamStandings what is the {Team} standings
-GetTeamStandings what is the {Team} record
-GetTeamStandings the {Team} standings
-GetTeamStandings the {Team} record
-GetTeamStandings where the {Team} stand
 GetTeamStandings the lottery odds for the {Team}
 GetTeamStandings info for the {Team}
 GetTeamStandings info about the {Team}
