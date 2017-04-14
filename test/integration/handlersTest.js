@@ -57,7 +57,7 @@ describe('Handlers', function () {
     });
 
     const welcomeMessage = 'Welcome to NBA Tank Standings, the app for finding out the latest info about the NBA draft' +
-      ' lottery. Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
+      ' lottery. Try asking, what are the tank standings, tell me the top 5 teams, what is the Sixers record, or ' +
       'simulate the lottery. Now, what can I help you with?';
     const welcomeReprompt = 'For instructions on what you can say, please say help me.';
     shared.shouldBehaveLikeAskWithReprompt(welcomeMessage, welcomeReprompt);
@@ -507,7 +507,7 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, what is the Sixers record, or ' +
         'simulate the lottery. Now, what can I help you with?';
     shared.shouldBehaveLikeAskWithReprompt(helpText, helpText);
   });
@@ -578,7 +578,7 @@ describe('Handlers', function () {
       this.err = null;
     });
 
-    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, where do the Sixers stand, or ' +
+    const helpText = 'Try asking, what are the tank standings, tell me the top 5 teams, what is the Sixers record, or ' +
         'simulate the lottery. Now, what can I help you with?';
     const unhandledText = 'Sorry, I don\'t know how to handle that request. ' + helpText;
     shared.shouldBehaveLikeAskWithReprompt(unhandledText, helpText);
