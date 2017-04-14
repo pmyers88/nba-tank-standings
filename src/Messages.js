@@ -48,7 +48,7 @@ const messages = {
     if (picks.length > 0) {
       message = `The ${team} currently hold the ` + compoundSubject(picks.map(pick => {
         return ordinalize(pick.toString());
-      })).delimitAll().make() + ` ${inflect('pick', picks.length)} in the NBA draft.`;
+      })).delimitAll().make() + ` ${inflect('spot', picks.length)} in the NBA tank standings.`;
     }
     return message;
   }

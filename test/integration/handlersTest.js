@@ -281,7 +281,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
+      const message = 'The 76ers currently hold the 4th spot in the NBA tank standings.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -306,7 +306,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
+      const message = 'The 76ers currently hold the 4th spot in the NBA tank standings.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -331,7 +331,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The 76ers currently hold the 4th pick in the NBA draft.';
+      const message = 'The 76ers currently hold the 4th spot in the NBA tank standings.';
       const title = '76ers Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });
@@ -406,7 +406,7 @@ describe('Handlers', function () {
         this.err = null;
       });
 
-      const message = 'The Nets currently hold the 22nd and 27th picks in the NBA draft.';
+      const message = 'The Nets currently hold the 22nd and 27th spots in the NBA tank standings.';
       const title = 'Nets Tank Standings';
       shared.shouldBehaveLikeTellWithCard(message, title, message);
     });

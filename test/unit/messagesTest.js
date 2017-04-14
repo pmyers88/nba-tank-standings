@@ -110,12 +110,12 @@ describe('Messages', function () {
     });
 
     it('should return the correct message when the team holds one pick', function () {
-      const expected = 'The Celtics currently hold the 1st pick in the NBA draft.';
+      const expected = 'The Celtics currently hold the 1st spot in the NBA tank standings.';
       messages.getTeamStandingsMessage('Celtics', [1]).should.equal(expected);
     });
 
     it('should return the correct message when the team holds multiple pick', function () {
-      const expected = 'The Trail Blazers currently hold the 16th, 19th, and 26th picks in the NBA draft.';
+      const expected = 'The Trail Blazers currently hold the 16th, 19th, and 26th spots in the NBA tank standings.';
       messages.getTeamStandingsMessage('Trail Blazers', [16, 19, 26]).should.equal(expected);
     });
   });
