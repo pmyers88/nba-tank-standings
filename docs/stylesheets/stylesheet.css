@@ -56,7 +56,7 @@ a {
 .page-header {
   color: #fff;
   text-align: center;
-  background: url(/images/tank.svg) repeat-x;
+  background: url(images/tank.svg) repeat-x;
   background-size: contain;
   background-color: #5F9EA0 }
 
