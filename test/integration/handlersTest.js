@@ -81,7 +81,7 @@ describe('Handlers', function () {
 
       const text = `The top ${process.env.NUM_TEAMS} teams in the tank standings are the`;
       const cardTitle = 'NBA Tank Standings';
-      const cardText = `The top ${process.env.NUM_TEAMS} teams in the tank standings are:\n`;
+      const cardText = `The top 14 teams in the tank standings are:\n`;
       shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
 
@@ -199,7 +199,7 @@ describe('Handlers', function () {
 
       const text = `The top 7 teams in the tank standings are`;
       const cardTitle = 'NBA Tank Standings';
-      const cardText = `The top 7 teams in the tank standings are:\n`;
+      const cardText = `The top 14 teams in the tank standings are:\n`;
       shared.shouldBehaveLikeTellWithCard(text, cardTitle, cardText);
     });
 
