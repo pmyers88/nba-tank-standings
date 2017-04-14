@@ -10,6 +10,7 @@ const CARD_ADDED = 'A card with this information has been added to your Alexa ap
 
 const messages = {
   CARD_ADDED: CARD_ADDED,
+  FULL_STANDINGS_CARD_ADDED: 'A card with the full lottery standings has been added to your Alexa app.',
   HELP_MESSAGE: HELP_MESSAGE,
   LOTTERY_SIMULATION_CARD_TITLE: 'Lottery Simulation Standings',
   NUMBER_NOT_HEARD: 'I couldn\'t hear the number of teams you asked for. Please repeat your request.',
@@ -30,8 +31,7 @@ const messages = {
   },
   getTankStandingsMessage: (teams) => {
     return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
-        `standings ${inflect('is', teams.length, 'is', 'are')} ${compoundSubject(teams).delimitAll().make()}. ` +
-        CARD_ADDED;
+        `standings ${inflect('is', teams.length, 'is', 'are')} ${compoundSubject(teams).delimitAll().make()}.`;
   },
   getTankStandingsText: (teams) => {
     return `The top${teams.length > 1 ? ' ' + teams.length : ''} ${inflect('team', teams.length)} in the tank ` +
