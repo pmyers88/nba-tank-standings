@@ -4,7 +4,7 @@ const winston = require('winston');
 const _ = require('lodash');
 
 const NBAClient = require('./NBAClient');
-const teams = require('./teams');
+const teams = require('../resources/teams');
 const messages = require('./messages');
 const intents = require('./intents');
 const events = require('./events');
@@ -34,7 +34,7 @@ const _resolveTrades = (teamStandings) => {
 };
 
 const _addThe = (teams) => {
-  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : `, from the ${team.from}, `));
+  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : `, from the ${team.from}`));
 };
 
 const _numericalOutput = (teams) => {

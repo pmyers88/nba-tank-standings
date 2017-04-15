@@ -69,7 +69,7 @@ describe('handlers', function () {
       const teams = [{owner: 'Celtics', from: 'Nets'}, {owner: 'Suns', from: 'Suns'}, {owner: 'Lakers', from: 'Lakers'},
           {owner: '76ers', from: '76ers'}];
       const teamsThe = _addThe(teams);
-      teamsThe.should.eql(['the Celtics from the Nets', 'the Suns', 'the Lakers', 'the 76ers']);
+      teamsThe.should.eql(['the Celtics, from the Nets', 'the Suns', 'the Lakers', 'the 76ers']);
     });
   });
 
