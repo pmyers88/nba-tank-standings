@@ -3,7 +3,7 @@
 const chai = require('chai');
 const _ = require('lodash');
 
-const teams = require('../../src/teams');
+const teams = require('../../resources/teams');
 
 chai.should();
 
