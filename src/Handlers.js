@@ -34,7 +34,7 @@ const _resolveTrades = (teamStandings) => {
 };
 
 const _addThe = (teams) => {
-  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : ` from the ${team.from}`));
+  return teams.map(team => `the ${team.owner}` + (team.owner === team.from ? '' : `, from the ${team.from}, `));
 };
 
 const _numericalOutput = (teams) => {
