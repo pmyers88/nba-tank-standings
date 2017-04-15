@@ -7,7 +7,8 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #606c71; }
+  color: #606c71;
+  background-color: #EBEBEB; }
 
 a {
   color: #1e6bb8;
@@ -54,11 +55,20 @@ a {
       margin-left: 0; } }
 
 .page-header {
-  color: #fff;
   text-align: center;
   background: url(../images/tank.svg) repeat-x;
   background-size: contain;
-  background-color: #5F9EA0 }
+  background-color: #6687AE }
+
+.project-name {
+  text-align: center;
+}
+
+iframe {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -72,42 +82,6 @@ a {
   .page-header {
     padding: 2rem 1rem; } }
 
-.photo-credit {
-  font-size: 10px; }
-
-.project-name {
-  margin-top: 0;
-  margin-bottom: 0.1rem; }
-
-@media screen and (min-width: 64em) {
-  .project-name {
-    font-size: 3.25rem; } }
-
-@media screen and (min-width: 42em) and (max-width: 64em) {
-  .project-name {
-    font-size: 2.25rem; } }
-
-@media screen and (max-width: 42em) {
-  .project-name {
-    font-size: 1.75rem; } }
-
-.project-tagline {
-  margin-bottom: 2rem;
-  font-weight: normal;
-  opacity: 0.7; }
-
-@media screen and (min-width: 64em) {
-  .project-tagline {
-    font-size: 1.25rem; } }
-
-@media screen and (min-width: 42em) and (max-width: 64em) {
-  .project-tagline {
-    font-size: 1.15rem; } }
-
-@media screen and (max-width: 42em) {
-  .project-tagline {
-    font-size: 1rem; } }
-
 .main-content :first-child {
   margin-top: 0; }
 .main-content img {
@@ -116,7 +90,7 @@ a {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  color: #159957; }
+  color: #358AEE; }
 .main-content p {
   margin-bottom: 1em; }
 .main-content code {
