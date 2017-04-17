@@ -3,7 +3,7 @@
 const winston = require('winston');
 const _ = require('lodash');
 
-const NBAClient = require('./NBAClient');
+const NBAClientFactory = require('./NBAClientFactory');
 const teams = require('../resources/teams');
 const messages = require('./messages');
 const intents = require('./intents');
@@ -66,6 +66,7 @@ const launchRequestHandler = function () {
 const getTankStandingsHandler = function () {
   winston.info('Starting getTankStandingsHandler()');
 
+  const NBAClient = NBAClientFactory.getNBAClient();
   NBAClient.getStandingsRequest().then(standingsResponse => {
     const teams = _resolveTrades(standingsResponse);
     const speechOutput = messages.getTankStandingsMessage(_addThe(_.slice(teams, 0, NUM_TEAMS))) + ' ' +
@@ -83,6 +84,7 @@ const getTankStandingsHandler = function () {
 const getLotterySimulationHandler = function () {
   winston.info('Starting getLotterySimulationHandler()');
 
+  const NBAClient = NBAClientFactory.getNBAClient();
   NBAClient.getStandingsRequest().then(standingsResponse => {
     const topThreeTeams = [];
     const topThreeIndices = [];
@@ -110,6 +112,7 @@ const getLotterySimulationHandler = function () {
 const getTopNTankStandingsHandler = function () {
   winston.info('Starting getTopNTankStandingsHandler()');
 
+  const NBAClient = NBAClientFactory.getNBAClient();
   const numTeamsSlot = this.event.request.intent.slots.NumTeams;
   const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
 
@@ -135,6 +138,7 @@ const getTopNTankStandingsHandler = function () {
 const getTeamStandingsHandler = function () {
   winston.info('Starting getTeamStandingsHandler()');
 
+  const NBAClient = NBAClientFactory.getNBAClient();
   const teamSlot = this.event.request.intent.slots.Team;
   let teamName = teamSlot && teamSlot.value ? teamSlot.value : null;
 

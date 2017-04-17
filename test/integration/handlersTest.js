@@ -13,7 +13,7 @@ const _ = require('lodash');
 const index = require('../../index');
 const shared = require('./sharedBehavior');
 const intentRequest = require('../fixtures/intentRequest');
-const NBAClient = require('../../src/NBAClient');
+const NBAHttpClient = require('../../src/NBAHttpClient');
 
 chai.should();
 
@@ -86,7 +86,7 @@ describe('Handlers', function () {
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
-      let handleRequest;
+      let clock, handleRequest;
 
       before(function (done) {
         const event = intentRequest.getRequest({
@@ -94,7 +94,10 @@ describe('Handlers', function () {
           'slots': {}
         });
 
-        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const date = new Date(2017, process.env.LAST_MONTH_OF_REG_SEASON, process.env.LAST_DAY_OF_REG_SEASON);
+        clock = sinon.useFakeTimers(date.getTime());
+
+        handleRequest = sinon.stub(NBAHttpClient, '_handleRequest');
         const expected = {statusCode: 400, json: {}};
         handleRequest.callsArgWith(1, expected);
 
@@ -105,7 +108,8 @@ describe('Handlers', function () {
       after(function () {
         this.done = null;
         this.err = null;
-        NBAClient._handleRequest.restore();
+        clock.restore();
+        NBAHttpClient._handleRequest.restore();
       });
 
       const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
@@ -149,7 +153,7 @@ describe('Handlers', function () {
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
-      let handleRequest;
+      let clock, handleRequest;
 
       before(function (done) {
         const event = intentRequest.getRequest({
@@ -157,7 +161,10 @@ describe('Handlers', function () {
           'slots': {}
         });
 
-        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const date = new Date(2017, process.env.LAST_MONTH_OF_REG_SEASON, process.env.LAST_DAY_OF_REG_SEASON);
+        clock = sinon.useFakeTimers(date.getTime());
+
+        handleRequest = sinon.stub(NBAHttpClient, '_handleRequest');
         const expected = {statusCode: 400, json: {}};
         handleRequest.callsArgWith(1, expected);
 
@@ -168,7 +175,8 @@ describe('Handlers', function () {
       after(function () {
         this.done = null;
         this.err = null;
-        NBAClient._handleRequest.restore();
+        clock.restore();
+        NBAHttpClient._handleRequest.restore();
       });
 
       const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
@@ -228,7 +236,7 @@ describe('Handlers', function () {
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
-      let handleRequest;
+      let clock, handleRequest;
 
       before(function (done) {
         const event = intentRequest.getRequest({
@@ -241,7 +249,10 @@ describe('Handlers', function () {
           }
         });
 
-        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const date = new Date(2017, process.env.LAST_MONTH_OF_REG_SEASON, process.env.LAST_DAY_OF_REG_SEASON);
+        clock = sinon.useFakeTimers(date.getTime());
+
+        handleRequest = sinon.stub(NBAHttpClient, '_handleRequest');
         const expected = {statusCode: 400, json: {}};
         handleRequest.callsArgWith(1, expected);
 
@@ -252,7 +263,8 @@ describe('Handlers', function () {
       after(function () {
         this.done = null;
         this.err = null;
-        NBAClient._handleRequest.restore();
+        clock.restore();
+        NBAHttpClient._handleRequest.restore();
       });
 
       const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';
@@ -460,7 +472,7 @@ describe('Handlers', function () {
     });
 
     describe('should emit appropriate error when there is an NBAClient#getStandingsRequest error', function () {
-      let handleRequest;
+      let clock, handleRequest;
 
       before(function (done) {
         const event = intentRequest.getRequest({
@@ -473,7 +485,10 @@ describe('Handlers', function () {
           }
         });
 
-        handleRequest = sinon.stub(NBAClient, '_handleRequest');
+        const date = new Date(2017, process.env.LAST_MONTH_OF_REG_SEASON, process.env.LAST_DAY_OF_REG_SEASON);
+        clock = sinon.useFakeTimers(date.getTime());
+
+        handleRequest = sinon.stub(NBAHttpClient, '_handleRequest');
         const expected = {statusCode: 400, json: {}};
         handleRequest.callsArgWith(1, expected);
 
@@ -484,7 +499,8 @@ describe('Handlers', function () {
       after(function () {
         this.done = null;
         this.err = null;
-        NBAClient._handleRequest.restore();
+        clock.restore();
+        NBAHttpClient._handleRequest.restore();
       });
 
       const message = 'There was an error trying to fetch the latest NBA standings. Please try again later.';

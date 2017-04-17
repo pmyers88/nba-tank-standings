@@ -9,7 +9,7 @@ const handlers = rewire('../../src/handlers');
 const intents = require('../../src/intents');
 const events = require('../../src/events');
 const standings = require('../fixtures/standings_conference');
-const NBAClient = require('../../src/NBAClient');
+const NBAHttpClient = require('../../src/NBAHttpClient');
 
 chai.should();
 
@@ -30,19 +30,19 @@ describe('handlers', function () {
     const _resolveTrades = handlers.__get__('_resolveTrades');
     let handleRequest;
 
-    beforeEach(function () {
-      handleRequest = sinon.stub(NBAClient, '_handleRequest');
+    before(function () {
+      handleRequest = sinon.stub(NBAHttpClient, '_handleRequest');
     });
 
-    afterEach(function () {
-      NBAClient._handleRequest.restore();
+    after(function () {
+      NBAHttpClient._handleRequest.restore();
     });
 
     it('should handle all trades correctly', function () {
       const expected = {statusCode: 200, json: standings};
       handleRequest.callsArgWith(1, expected);
 
-      const standingsRequest = NBAClient.getStandingsRequest();
+      const standingsRequest = NBAHttpClient.getStandingsRequest();
       return standingsRequest.then(topTeams => {
         topTeams = _resolveTrades(topTeams);
         topTeams.length.should.equal(30);
