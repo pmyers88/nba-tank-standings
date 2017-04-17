@@ -4,13 +4,14 @@
   "description": "Amazon Echo app for the latest NBA Tank Standings",
   "main": "index.js",
   "scripts": {
-    "setup-lambda": "node-lambda setup",
     "build": "node-lambda package",
     "clean": "rm -rf build",
-    "deploy": "yarn run test && node-lambda deploy",
+    "coverage": "istanbul cover _mocha -- ./test/**/*.js --reporter nyan",
+    "deploy-prod": "yarn run test && node-lambda deploy",
+    "deploy-test": "yarn run test && node-lambda deploy -e development",
     "lint": "semistandard",
-    "test": "yarn run lint && mocha ./test/**/*.js --reporter nyan",
-    "coverage": "istanbul cover _mocha -- ./test/**/*.js --reporter nyan"
+    "setup-lambda": "node-lambda setup",
+    "test": "yarn run lint && yarn run coverage"
   },
   "repository": "https://github.com/pmyers88/nba-tank-standings",
   "author": "Phil Myers <prm5031@gmail.com>",
@@ -28,7 +29,7 @@
     "istanbul": "^0.4.5",
     "lambda-local": "^1.4.2",
     "mocha": "^3.2.0",
-    "node-lambda": "https://github.com/motdotla/node-lambda#f3ff683b03725a8b3fb91b4751cbed37fae319d9",
+    "node-lambda": "^0.9.0",
     "rewire": "^2.5.2",
     "semistandard": "^10.0.0",
     "sinon": "^2.1.0"
