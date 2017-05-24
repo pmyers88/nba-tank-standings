@@ -2,6 +2,7 @@
 
 const http = require('http');
 const winston = require('winston');
+const _ = require('lodash');
 
 const NBAClient = require('./NBAClient');
 
@@ -15,13 +16,21 @@ class NBAHttpClient extends NBAClient {
     return new Promise((resolve, reject) => {
       this._handleRequest(options, (nbaResponse) => {
         if (nbaResponse.statusCode >= 200 && nbaResponse.statusCode <= 399) {
-          const leagueStandings = super.getLeagueStandings(nbaResponse.json);
+          const leagueStandings = this._getLeagueStandings(nbaResponse.json);
           resolve(leagueStandings);
         } else {
           reject(new Error(`Received invalid HTTP response code: ${nbaResponse.statusCode}`));
         }
       }, reject);
     });
+  }
+
+  static _getLeagueStandings (nbaResponse) {
+    const eastStandings = _.get(nbaResponse, 'league.standard.conference.east', []);
+    const westStandings = _.get(nbaResponse, 'league.standard.conference.west', []);
+    let leagueStandings = eastStandings.concat(westStandings);
+    leagueStandings = _.orderBy(leagueStandings, ['winPct', 'confRank'], ['asc', 'desc']);
+    return leagueStandings;
   }
 
   static _handleRequest (options, resolve, reject) {
