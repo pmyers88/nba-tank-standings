@@ -47,7 +47,8 @@
                         "homeWinLoss": 4,
                         "awayWinLoss": 4,
                         "lastTenWinLoss": 5,
-                        "streak": 4
+                        "streak": 4,
+                        "draftOrder": 27
                     }
                 }, {
                     "teamId": "1610612739",
@@ -87,7 +88,8 @@
                         "homeWinLoss": 2,
                         "awayWinLoss": 8,
                         "lastTenWinLoss": 20,
-                        "streak": 27
+                        "streak": 27,
+                        "draftOrder": 26
                     }
                 }, {
                     "teamId": "1610612761",
@@ -127,7 +129,8 @@
                         "homeWinLoss": 10,
                         "awayWinLoss": 5,
                         "lastTenWinLoss": 3,
-                        "streak": 3
+                        "streak": 3,
+                        "draftOrder": 25
                     }
                 }, {
                     "teamId": "1610612764",
@@ -167,7 +170,8 @@
                         "homeWinLoss": 6,
                         "awayWinLoss": 13,
                         "lastTenWinLoss": 19,
-                        "streak": 22
+                        "streak": 22,
+                        "draftOrder": 22
                     }
                 }, {
                     "teamId": "1610612737",
@@ -207,7 +211,8 @@
                         "homeWinLoss": 17,
                         "awayWinLoss": 9,
                         "lastTenWinLoss": 8,
-                        "streak": 16
+                        "streak": 16,
+                        "draftOrder": 19
                     }
                 }, {
                     "teamId": "1610612749",
@@ -247,7 +252,8 @@
                         "homeWinLoss": 16,
                         "awayWinLoss": 10,
                         "lastTenWinLoss": 12,
-                        "streak": 15
+                        "streak": 15,
+                        "draftOrder": 17
                     }
                 }, {
                     "teamId": "1610612754",
@@ -287,7 +293,8 @@
                         "homeWinLoss": 9,
                         "awayWinLoss": 21,
                         "lastTenWinLoss": 10,
-                        "streak": 2
+                        "streak": 2,
+                        "draftOrder": 18
                     }
                 }, {
                     "teamId": "1610612741",
@@ -327,7 +334,8 @@
                         "homeWinLoss": 12,
                         "awayWinLoss": 16,
                         "lastTenWinLoss": 4,
-                        "streak": 6
+                        "streak": 6,
+                        "draftOrder": 16
                     }
                 }, {
                     "teamId": "1610612748",
@@ -367,7 +375,8 @@
                         "homeWinLoss": 18,
                         "awayWinLoss": 14,
                         "lastTenWinLoss": 9,
-                        "streak": 5
+                        "streak": 5,
+                        "draftOrder": 14
                     }
                 }, {
                     "teamId": "1610612765",
@@ -407,7 +416,8 @@
                         "homeWinLoss": 15,
                         "awayWinLoss": 23,
                         "lastTenWinLoss": 26,
-                        "streak": 25
+                        "streak": 25,
+                        "draftOrder": 12
                     }
                 }, {
                     "teamId": "1610612766",
@@ -447,7 +457,8 @@
                         "homeWinLoss": 19,
                         "awayWinLoss": 19,
                         "lastTenWinLoss": 21,
-                        "streak": 28
+                        "streak": 28,
+                        "draftOrder": 11
                     }
                 }, {
                     "teamId": "1610612752",
@@ -487,7 +498,8 @@
                         "homeWinLoss": 24,
                         "awayWinLoss": 24,
                         "lastTenWinLoss": 22,
-                        "streak": 9
+                        "streak": 9,
+                        "draftOrder": 8
                     }
                 }, {
                     "teamId": "1610612753",
@@ -527,7 +539,8 @@
                         "homeWinLoss": 28,
                         "awayWinLoss": 20,
                         "lastTenWinLoss": 25,
-                        "streak": 10
+                        "streak": 10,
+                        "draftOrder": 6
                     }
                 }, {
                     "teamId": "1610612755",
@@ -567,7 +580,8 @@
                         "homeWinLoss": 25,
                         "awayWinLoss": 26,
                         "lastTenWinLoss": 30,
-                        "streak": 30
+                        "streak": 30,
+                        "draftOrder": 5
                     }
                 }, {
                     "teamId": "1610612751",
@@ -607,7 +621,8 @@
                         "homeWinLoss": 30,
                         "awayWinLoss": 30,
                         "lastTenWinLoss": 15,
-                        "streak": 24
+                        "streak": 24,
+                        "draftOrder": 1
                     }
                 }],
                 "west": [{
@@ -648,7 +663,8 @@
                         "homeWinLoss": 1,
                         "awayWinLoss": 1,
                         "lastTenWinLoss": 1,
-                        "streak": 14
+                        "streak": 14,
+                        "draftOrder": 30
                     }
                 }, {
                     "teamId": "1610612759",
@@ -688,7 +704,8 @@
                         "homeWinLoss": 3,
                         "awayWinLoss": 2,
                         "lastTenWinLoss": 18,
-                        "streak": 26
+                        "streak": 26,
+                        "draftOrder": 29
                     }
                 }, {
                     "teamId": "1610612745",
@@ -728,7 +745,8 @@
                         "homeWinLoss": 5,
                         "awayWinLoss": 3,
                         "lastTenWinLoss": 17,
-                        "streak": 13
+                        "streak": 13,
+                        "draftOrder": 28
                     }
                 }, {
                     "teamId": "1610612746",
@@ -768,7 +786,8 @@
                         "homeWinLoss": 7,
                         "awayWinLoss": 6,
                         "lastTenWinLoss": 2,
-                        "streak": 1
+                        "streak": 1,
+                        "draftOrder": 23
                     }
                 }, {
                     "teamId": "1610612762",
@@ -808,7 +827,8 @@
                         "homeWinLoss": 8,
                         "awayWinLoss": 7,
                         "lastTenWinLoss": 6,
-                        "streak": 7
+                        "streak": 7,
+                        "draftOrder": 24
                     }
                 }, {
                     "teamId": "1610612760",
@@ -848,7 +868,8 @@
                         "homeWinLoss": 11,
                         "awayWinLoss": 12,
                         "lastTenWinLoss": 11,
-                        "streak": 20
+                        "streak": 20,
+                        "draftOrder": 21
                     }
                 }, {
                     "teamId": "1610612763",
@@ -888,7 +909,8 @@
                         "homeWinLoss": 14,
                         "awayWinLoss": 11,
                         "lastTenWinLoss": 24,
-                        "streak": 23
+                        "streak": 23,
+                        "draftOrder": 20
                     }
                 }, {
                     "teamId": "1610612757",
@@ -928,7 +950,8 @@
                         "homeWinLoss": 13,
                         "awayWinLoss": 17,
                         "lastTenWinLoss": 7,
-                        "streak": 21
+                        "streak": 21,
+                        "draftOrder": 15
                     }
                 }, {
                     "teamId": "1610612743",
@@ -968,7 +991,8 @@
                         "homeWinLoss": 20,
                         "awayWinLoss": 15,
                         "lastTenWinLoss": 16,
-                        "streak": 8
+                        "streak": 8,
+                        "draftOrder": 13
                     }
                 }, {
                     "teamId": "1610612740",
@@ -1008,7 +1032,8 @@
                         "homeWinLoss": 22,
                         "awayWinLoss": 22,
                         "lastTenWinLoss": 23,
-                        "streak": 12
+                        "streak": 12,
+                        "draftOrder": 10
                     }
                 }, {
                     "teamId": "1610612742",
@@ -1048,7 +1073,8 @@
                         "homeWinLoss": 21,
                         "awayWinLoss": 25,
                         "lastTenWinLoss": 28,
-                        "streak": 11
+                        "streak": 11,
+                        "draftOrder": 9
                     }
                 }, {
                     "teamId": "1610612758",
@@ -1088,7 +1114,8 @@
                         "homeWinLoss": 26,
                         "awayWinLoss": 18,
                         "lastTenWinLoss": 13,
-                        "streak": 17
+                        "streak": 17,
+                        "draftOrder": 3
                     }
                 }, {
                     "teamId": "1610612750",
@@ -1128,7 +1155,8 @@
                         "homeWinLoss": 23,
                         "awayWinLoss": 27,
                         "lastTenWinLoss": 27,
-                        "streak": 29
+                        "streak": 29,
+                        "draftOrder": 7
                     }
                 }, {
                     "teamId": "1610612747",
@@ -1168,7 +1196,8 @@
                         "homeWinLoss": 27,
                         "awayWinLoss": 28,
                         "lastTenWinLoss": 14,
-                        "streak": 18
+                        "streak": 18,
+                        "draftOrder": 2
                     }
                 }, {
                     "teamId": "1610612756",
@@ -1208,7 +1237,8 @@
                         "homeWinLoss": 29,
                         "awayWinLoss": 29,
                         "lastTenWinLoss": 29,
-                        "streak": 19
+                        "streak": 19,
+                        "draftOrder": 4
                     }
                 }]
             }
