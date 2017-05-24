@@ -10,6 +10,8 @@ const CARD_ADDED = 'A card with this information has been added to your Alexa ap
 
 const messages = {
   CARD_ADDED: CARD_ADDED,
+  DRAFT_ORDER_SET_MESSAGE: 'The draft lottery has already happen, so simulating the lottery has been disabled. Try ' +
+    'again next year!',
   FULL_STANDINGS_CARD_ADDED: 'A card with the full lottery standings has been added to your Alexa app.',
   HELP_MESSAGE: HELP_MESSAGE,
   LOTTERY_SIMULATION_CARD_TITLE: 'Lottery Simulation Standings',

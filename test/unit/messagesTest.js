@@ -10,6 +10,7 @@ chai.should();
 describe('Messages', function () {
   it('should contain message keys', function () {
     messages.should.contain.keys('CARD_ADDED',
+      'DRAFT_ORDER_SET_MESSAGE',
       'FULL_STANDINGS_CARD_ADDED',
       'HELP_MESSAGE',
       'LOTTERY_SIMULATION_CARD_TITLE',
@@ -24,8 +25,8 @@ describe('Messages', function () {
     );
   });
 
-  it('should have 19 keys', function () {
-    _size(messages).should.equal(19);
+  it('should have 20 keys', function () {
+    _size(messages).should.equal(20);
   });
 
   describe('#getLotterySimulationMessage', function () {

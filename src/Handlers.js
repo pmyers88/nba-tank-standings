@@ -14,6 +14,7 @@ const events = require('./events');
 const lotteryOdds = require('./lotteryOdds');
 
 const NUM_TEAMS = process.env.NUM_TEAMS;
+const DRAFT_ORDER_SET = process.env.DRAFT_ORDER_SET;
 const NUM_LOTTERY_TEAMS = 14;
 
 const _resolveTrades = (teamStandings) => {
@@ -94,32 +95,39 @@ const getTankStandingsHandler = function () {
 const getLotterySimulationHandler = function () {
   const intent = this.event.request.intent;
 
-  const NBAClient = NBAClientFactory.getNBAClient();
-  NBAClient.getStandingsRequest().then(standingsResponse => {
-    const topThreeTeams = [];
-    const topThreeIndices = [];
-    for (let i = 1; i <= 3; i++) {
-      const winnerIndex = lotteryOdds.selectWinnerForPick(i, topThreeIndices);
-      topThreeTeams.push(standingsResponse[winnerIndex]);
-      topThreeIndices.push(winnerIndex);
-    }
-
-    // this mutates topTeams to remove the top 3 teams
-    _.remove(standingsResponse, (team, i) => topThreeIndices.findIndex(topThreeIndex => i === topThreeIndex) !== -1);
-
-    const newStandings = _.slice(_resolveTrades(topThreeTeams.concat(standingsResponse)), 0, NUM_LOTTERY_TEAMS);
-    const speechOutput = messages.getLotterySimulationMessage(_addThe(newStandings));
-    const cardOutput = messages.getLotterySimulationText(_numericalOutput(newStandings));
+  if (DRAFT_ORDER_SET === 'true') {
+    const speechOutput = messages.DRAFT_ORDER_SET_MESSAGE;
     VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-      this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, cardOutput);
+      this.emit(':tell', speechOutput);
     });
-  }).catch(error => {
-    winston.error(error.message);
-    const speechText = messages.STANDINGS_REQUEST_ERROR;
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-      this.emit(':tell', speechText);
+  } else {
+    const NBAClient = NBAClientFactory.getNBAClient();
+    NBAClient.getStandingsRequest().then(standingsResponse => {
+      const topThreeTeams = [];
+      const topThreeIndices = [];
+      for (let i = 1; i <= 3; i++) {
+        const winnerIndex = lotteryOdds.selectWinnerForPick(i, topThreeIndices);
+        topThreeTeams.push(standingsResponse[winnerIndex]);
+        topThreeIndices.push(winnerIndex);
+      }
+
+      // this mutates topTeams to remove the top 3 teams
+      _.remove(standingsResponse, (team, i) => topThreeIndices.findIndex(topThreeIndex => i === topThreeIndex) !== -1);
+
+      const newStandings = _.slice(_resolveTrades(topThreeTeams.concat(standingsResponse)), 0, NUM_LOTTERY_TEAMS);
+      const speechOutput = messages.getLotterySimulationMessage(_addThe(newStandings));
+      const cardOutput = messages.getLotterySimulationText(_numericalOutput(newStandings));
+      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
+        this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, cardOutput);
+      });
+    }).catch(error => {
+      winston.error(error.message);
+      const speechText = messages.STANDINGS_REQUEST_ERROR;
+      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
+        this.emit(':tell', speechText);
+      });
     });
-  });
+  }
 };
 
 const getTopNTankStandingsHandler = function () {
