@@ -1,6 +1,6 @@
 {
   "name": "nba-tank-standings",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Amazon Echo app for the latest NBA Tank Standings",
   "main": "index.js",
   "scripts": {
