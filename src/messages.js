@@ -2,7 +2,7 @@
 
 const compoundSubject = require('compound-subject');
 const inflection = require('inflection');
-const {inflect, ordinalize} = inflection;
+const { inflect, ordinalize } = inflection;
 
 const HELP_MESSAGE = 'Try asking, what are the tank standings, tell me the top 5 teams, what is the Sixers record, or ' +
     'simulate the lottery. Now, what can I help you with?';
