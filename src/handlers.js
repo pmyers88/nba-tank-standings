@@ -3,9 +3,6 @@
 const winston = require('winston');
 const _ = require('lodash');
 
-const voiceId = process.argv[1].includes('mocha') ? 'test' : process.env.VOICE_LABS_ID;
-const VoiceLabs = require('voicelabs')(voiceId);
-
 const NBAClientFactory = require('./NBAClientFactory');
 const teams = require('../resources/teams');
 const messages = require('./messages');
@@ -46,33 +43,20 @@ const _numericalOutput = (teams) => {
 };
 
 const newSessionRequestHandler = function () {
-  const intent = this.event.request.intent;
-
   if (this.event.request.type === events.LAUNCH_REQUEST) {
-    VoiceLabs.track(this.event.session, events.LAUNCH_REQUEST, _.get(intent, 'slots'), null, (error, response) => {   // eslint-disable-line
-      this.emit(events.LAUNCH_REQUEST);
-    });
+    this.emit(events.LAUNCH_REQUEST);
   } else if (this.event.request.type === events.SESSION_ENDED) {
-    VoiceLabs.track(this.event.session, events.SESSION_ENDED, _.get(intent, 'slots'), null, (error, response) => {   // eslint-disable-line
-      this.emit(events.SESSION_ENDED);
-    });
+    this.emit(events.SESSION_ENDED);
   } else if (this.event.request.type === 'IntentRequest') {
     this.emit(this.event.request.intent.name);
   }
 };
 
 const launchRequestHandler = function () {
-  const intent = this.event.request.intent;
-
-  const speechText = messages.WELCOME_MESSAGE;
-  VoiceLabs.track(this.event.session, events.LAUNCH_REQUEST, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-    this.emit(':ask', speechText, messages.WELCOME_REPROMPT);
-  });
+  this.emit(':ask', messages.WELCOME_MESSAGE, messages.WELCOME_REPROMPT);
 };
 
 const getTankStandingsHandler = function () {
-  const intent = this.event.request.intent;
-
   const NBAClient = NBAClientFactory.getNBAClient();
   NBAClient.getStandingsRequest().then(standingsResponse => {
     const teams = _resolveTrades(standingsResponse);
@@ -80,26 +64,17 @@ const getTankStandingsHandler = function () {
         messages.FULL_STANDINGS_CARD_ADDED;
     const cardOutput = messages.getTankStandingsText(_numericalOutput(_.slice(teams, 0, NUM_LOTTERY_TEAMS)));
 
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-      this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
-    });
+    this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
   }).catch(error => {
     winston.error(error.message);
-    const speechText = messages.STANDINGS_REQUEST_ERROR;
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-      this.emit(':tell', speechText);
-    });
+    this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
   });
 };
 
 const getLotterySimulationHandler = function () {
-  const intent = this.event.request.intent;
-
   if (DRAFT_ORDER_SET === 'true') {
     const speechOutput = messages.DRAFT_ORDER_SET_MESSAGE;
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-      this.emit(':tell', speechOutput);
-    });
+    this.emit(':tell', speechOutput);
   } else {
     const NBAClient = NBAClientFactory.getNBAClient();
     NBAClient.getStandingsRequest().then(standingsResponse => {
@@ -117,22 +92,15 @@ const getLotterySimulationHandler = function () {
       const newStandings = _.slice(_resolveTrades(topThreeTeams.concat(standingsResponse)), 0, NUM_LOTTERY_TEAMS);
       const speechOutput = messages.getLotterySimulationMessage(_addThe(newStandings));
       const cardOutput = messages.getLotterySimulationText(_numericalOutput(newStandings));
-      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-        this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, cardOutput);
-      });
+      this.emit(':tellWithCard', speechOutput, messages.LOTTERY_SIMULATION_CARD_TITLE, cardOutput);
     }).catch(error => {
       winston.error(error.message);
-      const speechText = messages.STANDINGS_REQUEST_ERROR;
-      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-        this.emit(':tell', speechText);
-      });
+      this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   }
 };
 
 const getTopNTankStandingsHandler = function () {
-  const intent = this.event.request.intent;
-
   const NBAClient = NBAClientFactory.getNBAClient();
   const numTeamsSlot = this.event.request.intent.slots.NumTeams;
   const numTeams = numTeamsSlot && numTeamsSlot.value ? numTeamsSlot.value : null;
@@ -143,22 +111,15 @@ const getTopNTankStandingsHandler = function () {
       const speechOutput = messages.getTankStandingsMessage(_addThe(teams)) + ' ' +
           messages.CARD_ADDED;
       const cardOutput = messages.getTankStandingsText(_numericalOutput(teams));
-      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-        this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
-      });
+      this.emit(':tellWithCard', speechOutput, messages.TANK_STANDINGS_CARD_TITLE, cardOutput);
     }).catch(error => {
       winston.error(error.message);
-      const speechText = messages.STANDINGS_REQUEST_ERROR;
-      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-        this.emit(':tell', speechText);
-      });
+      this.emit(':tell', messages.STANDINGS_REQUEST_ERROR);
     });
   } else {
     winston.log(`Number not heard; Intent: ${JSON.stringify(this.event.request.intent)}`);
     const speechText = messages.NUMBER_NOT_HEARD;
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-      this.emit(':ask', speechText, messages.NUMBER_NOT_HEARD);
-    });
+    this.emit(':ask', speechText, messages.NUMBER_NOT_HEARD);
   }
 };
 
@@ -192,39 +153,24 @@ const getTeamStandingsHandler = function () {
       if (officialTeamNickname) {
         const teamStandingsText = messages.getTeamStandingsMessage(officialTeamNickname, foundIndices);
         const speechOutput = teamStandingsText + ' ' + messages.CARD_ADDED;
-        VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechOutput, (error, response) => {   // eslint-disable-line
-          this.emit(':tellWithCard', speechOutput, messages.getTankStandingsCardTitle(officialTeamNickname),
-              teamStandingsText);
-        });
+        this.emit(':tellWithCard', speechOutput, messages.getTankStandingsCardTitle(officialTeamNickname),
+            teamStandingsText);
       } else {
-        const speechText = messages.getTeamNotFoundError(teamName);
-        VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-          this.emit(':ask', speechText, messages.getTeamNotFoundError(teamName));
-        });
+        this.emit(':ask', messages.getTeamNotFoundError(teamName), messages.getTeamNotFoundError(teamName));
       }
     }).catch(error => {
       winston.error(error.message);
       const speechText = messages.STANDINGS_REQUEST_ERROR;
-      VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-        this.emit(':tell', speechText);
-      });
+      this.emit(':tell', speechText);
     });
   } else {
     winston.log(`Team not heard error; Intent: ${JSON.stringify(this.event.request.intent)}`);
-    const speechText = messages.TEAM_NOT_HEARD_ERROR;
-    VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-      this.emit(':ask', speechText, messages.TEAM_NOT_HEARD_ERROR);
-    });
+    this.emit(':ask', messages.TEAM_NOT_HEARD_ERROR, messages.TEAM_NOT_HEARD_ERROR);
   }
 };
 
 const amazonHelpHandler = function () {
-  const intent = this.event.request.intent;
-
-  const speechText = messages.HELP_MESSAGE;
-  VoiceLabs.track(this.event.session, intent.name, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-    this.emit(':ask', speechText, messages.HELP_MESSAGE);
-  });
+  this.emit(':ask', messages.HELP_MESSAGE, messages.HELP_MESSAGE);
 };
 
 const amazonCancelHandler = function () {
@@ -236,21 +182,11 @@ const amazonStopHandler = function () {
 };
 
 const sessionEndedRequestHandler = function () {
-  const intent = this.event.request.intent;
-
-  const speechText = messages.STOP_MESSAGE;
-  VoiceLabs.track(this.event.session, _.get(intent, 'name', events.SESSION_ENDED), _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-    this.emit(':tell', speechText);
-  });
+  this.emit(':tell', messages.STOP_MESSAGE);
 };
 
 const unhandledRequestHandler = function () {
-  const intent = this.event.request.intent;
-
-  const speechText = messages.UNHANDLED_MESSAGE;
-  VoiceLabs.track(this.event.session, events.UNHANDLED, _.get(intent, 'slots'), speechText, (error, response) => {   // eslint-disable-line
-    this.emit(':ask', speechText, messages.HELP_MESSAGE);
-  });
+  this.emit(':ask', messages.UNHANDLED_MESSAGE, messages.HELP_MESSAGE);
 };
 
 const handlers = {};
